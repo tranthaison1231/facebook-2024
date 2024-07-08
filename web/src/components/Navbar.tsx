@@ -1,70 +1,51 @@
-import { Link, useLocation } from "react-router-dom";
-import Dashboard from "../assets/svgs/dashboard.svg?react";
-import MenuStyles from "../assets/svgs/menu-styles.svg?react";
-import Users from "../assets/svgs/users.svg?react";
+import { Link } from "react-router-dom";
+import Image from "./Image";
+import avatar from '../assets/images/sontung.jpeg'
 import { cn } from "../utils/cn";
+import NavbarIcon from "./NavbarIcon";
 
 const MENUS = [
-  { label: "Dashboard", link: "/", icon: Dashboard },
-  { label: "Menu Styles", link: "/menu-styles", icon: MenuStyles },
+  { label: "Nguyễn Thành Hiếu", link: "/", icon: <Image src={avatar} alt='avatar' className="rounded-full size-10 object-cover" /> },
+  { label: "Friends", link: "/friends", icon: <NavbarIcon name="friends" />}, 
   {
-    label: "Users",
-    link: "/users",
-    icon: Users,
-    children: [
-      {
-        label: "User Profile",
-        link: "/users/user-profile",
-      },
-      {
-        label: "Edit User",
-        link: "/users/edit-user",
-      },
-    ],
+    label: "Memories",
+    link: "/onthisday",
+    icon: <NavbarIcon name="memories" />,
+  },
+  {
+    label: "Saved",
+    link: "/saved",
+    icon: <NavbarIcon name="saved" />,
+  },
+  {
+    label: "Group",
+    link: "/group",
+    icon: <NavbarIcon name="group" />,
+  },
+  {
+    label: "Video",
+    link: "/video",
+    icon: <NavbarIcon name="video" />,
   },
 ];
 
 interface NavbarProps {
-  isToggle: boolean;
+  className?: string;
 }
 
-export default function Navbar({ isToggle }: NavbarProps) {
-  const location = useLocation();
+export default function Navbar({ className }: NavbarProps) {
 
   return (
-    <div
-      className={cn(
-        "fixed flex bg-white flex-col w-[260px] h-[calc(100vh-68px)] p-3",
-        {
-          "w-32": isToggle,
-        },
-      )}
-    >
+    <div className={cn("pt-4 px-2", className)}>
       {MENUS.map((menu) => (
         <div key={menu.link}>
           <Link
             to={menu.link}
-            className={cn("p-2 flex gap-4", {
-              "bg-[#3A57E8] text-white": location.pathname === menu.link,
-              "justify-center": isToggle,
-            })}
+            className={cn("p-2 flex items-center gap-4 font-semibold hover:bg-gray-200 rounded-lg")}
           >
-            <menu.icon />
-            {!isToggle ? menu.label : undefined}
+            {menu.icon}
+            {menu.label}
           </Link>
-          {!isToggle && (
-            <div className="pl-14">
-              {menu.children && (
-                <div className="flex flex-col gap-2">
-                  {menu.children.map((child) => (
-                    <Link key={child.link} to={child.link} className="p-2">
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </div>
       ))}
     </div>

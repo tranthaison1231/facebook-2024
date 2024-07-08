@@ -1,0 +1,11 @@
+export {default as ArrowLeft} from "./arrow-left.svg?react";
+export {default as Bell} from "./bell.svg?react";
+export {default as Facebook} from "./facebook.svg?react";
+export {default as Game} from "./game.svg?react";
+export {default as Group} from "./group.svg?react";
+export {default as Home} from "./home.svg?react";
+export {default as Like} from "./like.svg?react";
+export {default as Market} from "./market.svg?react";
+export {default as Messenger} from "./messenger.svg?react";
+export {default as Spin} from "./spin.svg?react";
+export {default as Menu} from './menu.svg?react'

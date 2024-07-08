@@ -1,60 +1,48 @@
-import message from "../assets/images/message.png";
-import notification from "../assets/images/notification.png";
-import avatar from "../assets/images/avatar.png";
-import logo from "../assets/images/logo.png";
-import imguk from "../assets/images/imguk.png";
-import ArrowLeft from "../assets/svgs/arrow-left.svg?react";
-import { cn } from "../utils/cn";
+import { useState } from "react";
 
-interface HeaderProps {
-  isToggle: boolean;
-  onToggle: () => void;
-}
+import avatar from '../assets/images/avatar.png'
+import HeaderMenu from "./HeaderMenu";
+import HeaderBar from "./HeaderBar";
+import Search from "./Search";
+import SearchItem from "./SearchItem";
+import logoFacebook from '../assets/images/logo-facebook.png'
+import Image from "./Image";
+import {ArrowLeft} from '../assets/svgs';
 
-export default function Header({ isToggle, onToggle }: HeaderProps) {
+export default function Header() {
+  const [isSearchToggle, setIsSearchToggle] = useState(false);
   return (
-    <section className="flex fixed bg-white z-9999 w-full">
-      <div
-        className={cn(
-          "w-[260px] relative flex items-center justify-center gap-4",
-          {
-            "w-32": isToggle,
-          },
+    <header className="flex justify-between fixed h-14 bg-white z-9999 w-full">
+      <div className="flex items-center relative pl-2">
+        <Image src={logoFacebook} alt="avatar" className="rounded-full size-10" />
+        <Search onclick={() => setIsSearchToggle(!isSearchToggle)} />
+        {isSearchToggle && (
+          <div
+            className="absolute bg-white border-1 w-[340px] top-0 left-0  z-50 rounded-lg shadow-lg flex flex-col"
+            onClick={() => setIsSearchToggle(!isSearchToggle)}
+          >
+            <div className="flex items-center justify-start my-2 pr-2 pl-3 gap-2">
+              <ArrowLeft className="size-6 hover:bg-gray-100 rounded-full p-1.5 scale-150" />
+              <Search noHidden/>
+            </div>
+            <div className="flex items-center justify-between px-2">
+              <h4 className="font-semibold px-3">Recently</h4>
+              <p className="text-sm px-2 py-1 text-blue-500 hover:bg-gray-100">Edit</p>
+            </div>
+            <div>
+              <SearchItem image={avatar} name="John Doe" username="johndoe"/>
+              <SearchItem image={avatar} name="John Doe" username="johndoe"/>
+              <SearchItem image={avatar} name="John Doe" username="johndoe"/>
+              <SearchItem image={avatar} name="John Doe" username="johndoe"/>
+              <SearchItem image={avatar} name="John Doe" username="johndoe"/>
+            </div>
+          </div>
         )}
-      >
-        <img src={logo} alt="logo" />
-        {!isToggle ? (
-          <h2 className="text-3xl font-bold"> Hope UI</h2>
-        ) : undefined}
-
-        <div
-          onClick={onToggle}
-          className={cn(
-            "absolute -right-3 top-1/2 -translate-y-1/2 w-8 h-8 cursor-pointer bg-[#3A57E8] rounded-full flex items-center justify-center",
-            {
-              "rotate-180": isToggle,
-            },
-          )}
-        >
-          <ArrowLeft />
-        </div>
       </div>
-      <div className="flex justify-between flex-1 px- py-4">
-        <input
-          className="pl-8 w-80 h-9 outline-none "
-          type="search"
-          placeholder="Search"
-          name="search"
-        />
-        <div className="flex justify-end md:mt-0 space-x-6 rtl:space-x-reverse">
-          <img className="size-8" src={imguk} alt="imguk"></img>
-          <img className="size-8" src={message} alt="message"></img>
-          <img className="size-8" src={notification} alt="notification"></img>
-          <img className="size-8" src={avatar} alt="avatar"></img>
-          <h1>Austin Robertson</h1>
-          <p>Marketing Administrator</p>
-        </div>
+      <div>
+        <HeaderBar />
       </div>
-    </section>
+      <HeaderMenu />
+    </header>
   );
 }

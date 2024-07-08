@@ -11,9 +11,6 @@ export default {
       zIndex: {
         9999: "9999",
       },
-      fontFamily: {
-        poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
-      },
     },
   },
   plugins: [
