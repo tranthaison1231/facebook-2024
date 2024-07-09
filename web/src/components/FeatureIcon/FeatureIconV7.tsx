@@ -1,7 +1,7 @@
 import FeatureIconsImagev7 from "../../assets/images/feature-icon-v7.png";
 import { cn } from "../../utils/cn";
 interface FeatureIconProps {
-  name: "AllActivities" | "MessageSupport" | "Reports";
+  name: "AllActivities" | "MessageSupport" | "Reports" | "Star";
   size?:string
 }
 function FeatureIconV7({ name,size }: FeatureIconProps) {
@@ -14,6 +14,9 @@ function FeatureIconV7({ name,size }: FeatureIconProps) {
     },
     Reports: {
       backgroundPosition: "0px -679px",
+    },
+    Star: {
+      backgroundPosition: "0px -742px",
     }
   };
   return (

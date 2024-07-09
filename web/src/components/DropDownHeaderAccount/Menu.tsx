@@ -1,12 +1,13 @@
-import { useState,forwardRef } from "react";
+import { useState, forwardRef } from "react";
 
 import Image from "../Image";
 import avatar from "../../assets/images/sontung.jpeg";
 import FeatureIconV1 from "../FeatureIcon/FeatureIconV1";
 import FeatureIconV3 from "../FeatureIcon/FeatureiconV3";
 import PageUserItem from "../PageUserItem";
-import {MENUS} from './Constants'
+import { MENUS } from "./Constants";
 import Item from "./Item";
+import Search from "../Search";
 
 function Menu({ ...props }: any, ref: any) {
   const [history, setHistory] = useState([MENUS]);
@@ -38,7 +39,7 @@ function Menu({ ...props }: any, ref: any) {
   const renderItem = () => {
     return current.data.map((item, index) => {
       const isParent = !!item.children;
-      
+
       const handleClickMenuItem = (item: any) => {
         if (isParent) {
           setHistory([...history, item.children]);
@@ -63,8 +64,16 @@ function Menu({ ...props }: any, ref: any) {
     setHistory(history.slice(0, history.length - 1));
   };
 
+  const handleChangeInput = (value: string) => {
+    console.log(value);
+  };
+
+
   return (
-    <div ref={ref} className="text-sm font-semibold absolute z-10 bg-white w-96 pt-2 top-12 mt-1 text-gray-700 shadow-2xl border-[1px] right-4 max-h-[90vh] overflow-y-auto  rounded-xl">
+    <div
+      ref={ref}
+      className="text-sm font-semibold absolute z-10 bg-white w-96 pt-2 top-12 mt-1 text-gray-700 shadow-2xl border-[1px] right-4 max-h-[90vh] overflow-y-auto  rounded-xl"
+    >
       {history[history.length - 1].title === "MainMenu" ? (
         <div className="flex flex-col cursor-pointer mx-4 mb-4 mt-1">
           <div className=" shadow-lg border-gray-200 border-[1px] rounded-lg">
@@ -90,13 +99,23 @@ function Menu({ ...props }: any, ref: any) {
         </div>
       ) : (
         <div className="flex items-center gap-2 text-2xl font-bold mb-2 mt-1 mx-2 px-2">
-          <div className="flex items-center p-2.5 rounded-full hover:bg-gray-200 cursor-pointer relative" onClick={() => handleBack()}>
+          <div
+            className="flex items-center p-2.5 rounded-full hover:bg-gray-200 cursor-pointer relative"
+            onClick={() => handleBack()}
+          >
             <FeatureIconV3 name="ArrowLeft" />
           </div>
           <p className="pl-4">{history[history.length - 1].title}</p>
         </div>
       )}
-      <div className="pb-2 flex flex-col">{renderItem()}</div>
+      <div className="pb-2 flex flex-col">
+        {history[history.length - 1].search && (
+          <div className="pb-1">
+            <Search noHidden placeholderValue="Search language"   />
+          </div>
+        )}
+        {renderItem()}
+      </div>
     </div>
   );
 }

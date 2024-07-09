@@ -13,7 +13,7 @@ function PostList() {
               <Image
                 src={avatar}
                 alt="User Avatar"
-                className="size-[40px] rounded-full"
+                className="size-10 rounded-full"
               />
               <div>
                 <p className="text-gray-800 font-semibold">John Doe</p>

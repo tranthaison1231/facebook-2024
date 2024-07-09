@@ -37,13 +37,27 @@ export const MENUS = {
                   logoIcon: <FeatureIconV1 name="GlobalPencil" size="size-5" />,
                   directIcon: <FeatureIconV5 name="ArrowRight" />,
                   content: "English (UK)",
+                  children: {
+                    title: "Language on Facebook",
+                    search: true,
+                    data: [
+                      {
+                        title: "English (UK)",
+                        content: "English (UK)",
+                      },
+                      {
+                        title: "Tiếng Việt",
+                        content: "Tiếng Việt",
+                      }
+                    ],
+                  }
                 },
                 {
                   title: "See all Settings",
                   logoIcon: <FeatureIconV3 name="SettingAndPrivacy" />,
                 },
               ],
-            }
+            },
           },
           {
             title: "Check Privacy",
@@ -122,14 +136,34 @@ export const MENUS = {
               "Show information and actions in the preview window without opening the page to a person, event, or group.",
             radio: [
               { title: "Show a preview when hovering over a link" },
-              { title: "Show a preview after focusing a link", content:"Best suited when using a screen reader or magnifying glass. The link changes to a button to open the preview window" },
+              {
+                title: "Show a preview after focusing a link",
+                content:
+                  "Best suited when using a screen reader or magnifying glass. The link changes to a button to open the preview window",
+              },
             ],
           },
           {
             title: "Keyboard",
             logoIcon: <FeatureIconV1 name="KeyBoard" size="size-5" />,
             directIcon: <FeatureIconV5 name="ArrowRight" />,
-          }
+            children: {
+              title: "Keyboard",
+              data: [
+                {
+                  title: "See all Keyboard shortcuts",
+                  logoIcon: <FeatureIconV1 name="KeyBoard" size="size-5" />,
+                },
+                {
+                  title: "Use shortcuts with one character",
+                  logoIcon: <FeatureIconV7 name="Star" size="size-5" />,
+                  content:
+                    "Use single-character shortcuts to perform common actions.",
+                  radio: [{ title: "Turn on" }, { title: "Turn off" }],
+                },
+              ],
+            },
+          },
         ],
       },
     },
@@ -143,3 +177,4 @@ export const MENUS = {
     },
   ],
 };
+

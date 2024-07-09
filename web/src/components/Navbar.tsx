@@ -36,7 +36,7 @@ interface NavbarProps {
 export default function Navbar({ className }: NavbarProps) {
 
   return (
-    <div className={cn("pt-4 px-2", className)}>
+    <div className={cn("pt-4 px-2 hidden md:block", className)}>
       {MENUS.map((menu) => (
         <div key={menu.link}>
           <Link
