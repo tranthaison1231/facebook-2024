@@ -5,7 +5,10 @@ import { useClickOutside } from "../hooks/useClickOutSize";
 import Image from "./Image";
 import { Bell, Messenger, Menu } from "../assets/svgs";
 import { ChevronDown } from "lucide-react";
-import { default as DropDownHeaderAccount } from "./DropDownHeaderAccount/Menu";
+import { default as HeaderAccountDropDown } from "./HeaderDropDown/Account/AccountMenu";
+import { default as HeaderNotificationDropDown } from "./HeaderDropDown/Notification/Notification";
+import { default as MessengerDropDown } from "./HeaderDropDown/Messenger/Messenger";
+import { default as HeaderMenuDropDown } from "./HeaderDropDown/Menu/DashboardMenu";
 const MENUS = [
   {
     title: "Menu",
@@ -33,7 +36,7 @@ const initalShowDropDown = {
 };
 const showReducer = (state: any, action: any) => {
   switch (action.type) {
-    case "hideMenu":
+    case "hideAll":
       return initalShowDropDown;
     case "showNotification":
       return {
@@ -63,9 +66,9 @@ const showReducer = (state: any, action: any) => {
       return state;
   }
 };
-const hideMenuAction = () => {
+const hideAllAction = () => {
   return {
-    type: "hideMenu",
+    type: "hideAll",
   };
 };
 const showAccountAction = () => {
@@ -90,10 +93,11 @@ const showMessageAction = () => {
 };
 function HeaderMenu() {
   const [showDropDown, dispatch] = useReducer(showReducer, initalShowDropDown);
+  console.log(showDropDown);
   const ref = useRef(null);
-  useClickOutside({ ref, onClickOutside: () => dispatch(hideMenuAction()) });
+  useClickOutside({ ref, onClickOutside: () => dispatch(hideAllAction()) });
   return (
-    <div className="flex gap-2 items-center pr-4 relative">
+    <div ref={ref} className="flex gap-2 items-center pr-4 relative">
       {MENUS.map((menu) => (
         <div
           onClick={() => dispatch(menu.onclick())}
@@ -104,26 +108,34 @@ function HeaderMenu() {
           <div className="absolute -top-1.5 -right-2 size-5 bg-rose-500  rounded-full flex items-center justify-center text-white text-xs">
             3
           </div>
-          <div className="absolute bg-gray-700 rounded-lg -bottom-8  text-white text-xs p-1 hidden group-hover:block -translate-x-1/2 left-1/2">
+          <div className="absolute bg-gray-700 rounded-lg -bottom-8  text-white text-xs p-1 hidden group-hover:block -translate-x-1/2 left-1/2 z-20">
             {menu.title}
           </div>
         </div>
       ))}
-      <div className="relative" onClick={() => dispatch(showAccountAction())}>
-        <div className="relative font-semibold ">
-          <Image
-            src={avatar}
-            className="size-10 cursor-pointer rounded-full"
-            alt="avatar"
-          />
-        </div>
+      <div
+        className="relative group"
+        onClick={() => dispatch(showAccountAction())}
+      >
+        <Image
+          src={avatar}
+          className="size-10 cursor-pointer rounded-full"
+          alt="avatar"
+        />
         <ChevronDown className="size-4 cursor-pointer bottom-0.5 -right-1 absolute bg-gray-300 border-2 border-white rounded-full" />
-        <div className="absolute bg-gray-700 rounded-lg -bottom-8 text-white text-xs p-1 hidden group-hover:block -translate-x-1/2 left-1/2 ">
+        <div className="absolute bg-gray-700 rounded-lg -bottom-8 text-white text-xs p-1 hidden group-hover:block -translate-x-1/2 left-1/2 z-20">
           Account
         </div>
       </div>
+      {showDropDown.isToggle && showDropDown.showMenu && <HeaderMenuDropDown />}
+      {showDropDown.isToggle && showDropDown.showMessage && (
+        <MessengerDropDown />
+      )}
+      {showDropDown.isToggle && showDropDown.showNotification && (
+        <HeaderNotificationDropDown />
+      )}
       {showDropDown.isToggle && showDropDown.showAccount && (
-        <DropDownHeaderAccount ref={ref} />
+        <HeaderAccountDropDown />
       )}
     </div>
   );

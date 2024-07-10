@@ -7,7 +7,7 @@ import  Smile  from "../assets/images/smile.png";
 
 function CreatePost() {
   return (
-    <div className="bg-white rounded-lg shadow-md pb-2.5 pt-3 px-4 ">
+    <div className="bg-white rounded-lg shadow-md my-4 pb-2.5 pt-3 px-4 w-[500px] ">
       <div className="flex justify-start items-center text-lg gap-2">
         <Image
           className="size-10 rounded-full"

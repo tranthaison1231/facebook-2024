@@ -1,15 +1,15 @@
-import { useState, forwardRef } from "react";
+import { useState } from "react";
 
-import Image from "../Image";
-import avatar from "../../assets/images/sontung.jpeg";
-import FeatureIconV1 from "../FeatureIcon/FeatureIconV1";
-import FeatureIconV3 from "../FeatureIcon/FeatureiconV3";
-import PageUserItem from "../PageUserItem";
+import Image from "../../Image";
+import avatar from "../../../assets/images/sontung.jpeg";
+import FeatureIconV1 from "../../FeatureIcon/FeatureIconV1";
+import FeatureIconV3 from "../../FeatureIcon/FeatureiconV3";
+import PageUserItem from "../../PageUserItem";
 import { MENUS } from "./Constants";
 import Item from "./Item";
-import Search from "../Search";
+import Search from "../../Search";
 
-function Menu({ ...props }: any, ref: any) {
+function AccountMenu() {
   const [history, setHistory] = useState([MENUS]);
   const current = history[history.length - 1];
   const onChange = (item: any) => {
@@ -64,15 +64,9 @@ function Menu({ ...props }: any, ref: any) {
     setHistory(history.slice(0, history.length - 1));
   };
 
-  const handleChangeInput = (value: string) => {
-    console.log(value);
-  };
-
-
   return (
     <div
-      ref={ref}
-      className="text-sm font-semibold absolute z-10 bg-white w-96 pt-2 top-12 mt-1 text-gray-700 shadow-2xl border-[1px] right-4 max-h-[90vh] overflow-y-auto  rounded-xl"
+      className="text-sm font-semibold absolute z-10 bg-white w-96 pt-2 top-10 mt-1 text-gray-700 shadow-2xl border-[1px] right-4 max-h-[90vh] overflow-y-auto rounded-xl"
     >
       {history[history.length - 1].title === "MainMenu" ? (
         <div className="flex flex-col cursor-pointer mx-4 mb-4 mt-1">
@@ -105,7 +99,7 @@ function Menu({ ...props }: any, ref: any) {
           >
             <FeatureIconV3 name="ArrowLeft" />
           </div>
-          <p className="pl-4">{history[history.length - 1].title}</p>
+          <h1 className="pl-4">{history[history.length - 1].title}</h1>
         </div>
       )}
       <div className="pb-2 flex flex-col">
@@ -120,4 +114,4 @@ function Menu({ ...props }: any, ref: any) {
   );
 }
 
-export default forwardRef(Menu);
+export default AccountMenu;

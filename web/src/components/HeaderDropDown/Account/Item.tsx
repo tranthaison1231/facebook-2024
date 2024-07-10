@@ -1,5 +1,5 @@
-import Radio from "../Radio";
-import { cn } from "../../utils/cn";
+import Radio from "../../Radio";
+import { cn } from "../../../utils/cn";
 interface ItemProps {
   logoIcon?: JSX.Element;
   title: string;

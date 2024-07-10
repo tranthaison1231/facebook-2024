@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import avatar from "../assets/images/avatar.png";
 import HeaderMenu from "./HeaderMenu";
@@ -16,18 +17,20 @@ export default function Header() {
   useClickOutside({ ref, onClickOutside: () => setSearchToggle(false) });
 
   return (
-    <header className="flex justify-between fixed h-14 bg-white z-9999 w-full">
-      <div className="flex items-center relative pl-2">
-        <Image
-          src={logoFacebook}
-          alt="avatar"
-          className="rounded-full size-10"
-        />
+    <header className="grid grid-cols-4  place-items-center justify-between fixed h-14 bg-white z-9999 w-full">
+      <div className=" col-span-1 flex items-center relative pl-5 justify-self-start">
+        <Link to="/">
+          <Image
+            src={logoFacebook}
+            alt="avatar"
+            className="rounded-full size-10"
+          />
+        </Link>
         <Search onclick={() => setSearchToggle(!SearchToggle)} placeholderValue="Search" />
         {SearchToggle && (
           <div
             ref={ref}
-            className="absolute bg-white border-1 w-[340px] top-0 left-0  z-50 rounded-lg shadow-lg flex flex-col"
+            className="absolute bg-white border-1 w-[340px] top-0 left-0 z-50 rounded-lg shadow-lg flex flex-col"
           >
             <div className="flex items-center justify-start my-2 pr-2 pl-3 gap-2">
               <ArrowLeft
@@ -52,10 +55,10 @@ export default function Header() {
           </div>
         )}
       </div>
-      <div>
+      <div className="col-span-2 place-self-center">
         <HeaderBar />
       </div>
-      <HeaderMenu />
+      <div className="col-span-1 justify-self-end"><HeaderMenu /></div>
     </header>
   );
 }

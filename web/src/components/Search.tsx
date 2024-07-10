@@ -33,7 +33,7 @@ function Search({
         value={valueInput}
         placeholder={placeholderValue}
         className={cn(
-          "bg-gray-100  rounded-full -ml-10 py-2 pl-8 xl:block hidden w-full focus:outline-none",
+          "bg-gray-100 rounded-full -ml-10 py-2 pl-8 lg:block hidden w-full focus:outline-none",
           {
             block: noHidden,
           }

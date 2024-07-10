@@ -1,7 +1,7 @@
 import FeatureIconsImagev3 from "../../assets/images/feature-icon-v3.png";
 import { cn } from "../../utils/cn";
 interface FeatureIconProps {
-  name: "SettingAndPrivacy" | "ArrowLeft";
+  name: "SettingAndPrivacy" | "ArrowLeft" | "Ellipsis";
   size?: string;
 }
 function FeatureIconV3({ name,size }: FeatureIconProps) {
@@ -11,7 +11,10 @@ function FeatureIconV3({ name,size }: FeatureIconProps) {
     },
     ArrowLeft: {
       backgroundPosition: "0px -124px",
-    }
+    },
+    Ellipsis: {
+      backgroundPosition: "0px -419px",
+    },
   };
   return (
     <i

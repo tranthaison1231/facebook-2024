@@ -6,7 +6,7 @@ import Image from "./Image";
 import avatar from "../assets/images/avatar.png";
 function PostList() {
   return (
-      <div className="bg-white rounded-lg shadow-md">
+      <div className="bg-white rounded-lg shadow-md w-[500px]">
         <div className="p-3">
           <div className="flex items-center justify-between mb-4 ">
             <div className="flex items-center space-x-2">
