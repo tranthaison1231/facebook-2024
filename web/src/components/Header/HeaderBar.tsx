@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-import { cn } from "../utils/cn";
-import { Home, Market, Group, Game } from "../assets/svgs";
+import { cn } from "../../utils/cn";
+import { Home, Market, Group, Game } from "../../assets/svgs";
 
 const HEADER_BARS = [
   {

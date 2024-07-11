@@ -1,14 +1,14 @@
 import { useReducer, useRef } from "react";
 
-import avatar from "../assets/images/sontung.jpeg";
-import { useClickOutside } from "../hooks/useClickOutSize";
-import Image from "./Image";
-import { Bell, Messenger, Menu } from "../assets/svgs";
+import avatar from "../../assets/images/sontung.jpeg";
+import { useClickOutside } from "../../hooks/useClickOutSize";
+import Image from "../Image";
+import { Bell, Messenger, Menu } from "../../assets/svgs";
 import { ChevronDown } from "lucide-react";
-import { default as HeaderAccountDropDown } from "./HeaderDropDown/Account/AccountMenu";
-import { default as HeaderNotificationDropDown } from "./HeaderDropDown/Notification/Notification";
-import { default as MessengerDropDown } from "./HeaderDropDown/Messenger/Messenger";
-import { default as HeaderMenuDropDown } from "./HeaderDropDown/Menu/DashboardMenu";
+import { default as HeaderAccountDropDown } from "../HeaderDropDown/Account/AccountMenu";
+import { default as HeaderNotificationDropDown } from "../HeaderDropDown/Notification/Notification";
+import { default as MessengerDropDown } from "../HeaderDropDown/Messenger/Messenger";
+import { default as HeaderMenuDropDown } from "../HeaderDropDown/Menu/DashboardMenu";
 const MENUS = [
   {
     title: "Menu",

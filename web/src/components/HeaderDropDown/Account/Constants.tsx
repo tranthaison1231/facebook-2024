@@ -1,6 +1,6 @@
 import FeatureIconV1 from "../../FeatureIcon/FeatureIconV1";
 import FeatureIconV2 from "../../FeatureIcon/FeatureIconV2";
-import FeatureIconV3 from "../../FeatureIcon/FeatureiconV3";
+import FeatureIconV3 from "../../FeatureIcon/FeatureIconV3";
 import FeatureIconV4 from "../../FeatureIcon/FeatureIconV4";
 import FeatureIconV5 from "../../FeatureIcon/FeatureIconV5";
 import FeatureIconV6 from "../../FeatureIcon/FeatureIconV6";
@@ -48,9 +48,9 @@ export const MENUS = {
                       {
                         title: "Tiếng Việt",
                         content: "Tiếng Việt",
-                      }
+                      },
                     ],
-                  }
+                  },
                 },
                 {
                   title: "See all Settings",
@@ -177,4 +177,3 @@ export const MENUS = {
     },
   ],
 };
-

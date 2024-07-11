@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 export default function PrivateLayout() {
   const token = localStorage.getItem("token");
 
@@ -8,7 +8,7 @@ export default function PrivateLayout() {
   return (
     <div>
       <Header />
-      <div className="pt-14 px-2">
+      <div className="pt-14">
         <Outlet />
       </div>
     </div>

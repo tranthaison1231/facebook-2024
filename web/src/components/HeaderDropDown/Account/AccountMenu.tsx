@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "../../Image";
 import avatar from "../../../assets/images/sontung.jpeg";
 import FeatureIconV1 from "../../FeatureIcon/FeatureIconV1";
-import FeatureIconV3 from "../../FeatureIcon/FeatureiconV3";
+import FeatureIconV3 from "../../FeatureIcon/FeatureIconV3";
 import PageUserItem from "../../PageUserItem";
 import { MENUS } from "./Constants";
 import Item from "./Item";
@@ -65,12 +65,10 @@ function AccountMenu() {
   };
 
   return (
-    <div
-      className="text-sm font-semibold absolute z-10 bg-white w-96 pt-2 top-10 mt-1 text-gray-700 shadow-2xl border-[1px] right-4 max-h-[90vh] overflow-y-auto rounded-xl"
-    >
+    <div className="text-sm font-semibold absolute z-10 bg-white w-96 pt-2 top-10 mt-1 text-gray-700 shadow-2xl border right-4 max-h-[90vh] overflow-y-auto rounded-xl">
       {history[history.length - 1].title === "MainMenu" ? (
         <div className="flex flex-col cursor-pointer mx-4 mb-4 mt-1">
-          <div className=" shadow-lg border-gray-200 border-[1px] rounded-lg">
+          <div className=" shadow-lg border-gray-200 border rounded-lg">
             <div className="flex items-center gap-2 p-2 hover:bg-gray-200 rounded-md m-1">
               <Image
                 src={avatar}
@@ -105,7 +103,7 @@ function AccountMenu() {
       <div className="pb-2 flex flex-col">
         {history[history.length - 1].search && (
           <div className="pb-1">
-            <Search noHidden placeholderValue="Search language"   />
+            <Search noHidden placeholderValue="Search language" />
           </div>
         )}
         {renderItem()}

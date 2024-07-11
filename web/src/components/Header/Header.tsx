@@ -1,15 +1,15 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
-import avatar from "../assets/images/avatar.png";
+import avatar from "../../assets/images/avatar.png";
 import HeaderMenu from "./HeaderMenu";
 import HeaderBar from "./HeaderBar";
-import Search from "./Search";
-import SearchItem from "./SearchItem";
-import logoFacebook from "../assets/images/logo-facebook.png";
-import Image from "./Image";
-import { ArrowLeft } from "../assets/svgs";
-import { useClickOutside } from "../hooks/useClickOutSize";
+import Search from "../Search";
+import SearchItem from "../SearchItem";
+import logoFacebook from "../../assets/images/logo-facebook.png";
+import Image from "../Image";
+import { ArrowLeft } from "../../assets/svgs";
+import { useClickOutside } from "../../hooks/useClickOutSize";
 
 export default function Header() {
   const [SearchToggle, setSearchToggle] = useState(false);
@@ -23,10 +23,13 @@ export default function Header() {
           <Image
             src={logoFacebook}
             alt="avatar"
-            className="rounded-full size-10"
+            className="rounded-full size-10 min-w-10"
           />
         </Link>
-        <Search onclick={() => setSearchToggle(!SearchToggle)} placeholderValue="Search" />
+        <Search
+          onclick={() => setSearchToggle(!SearchToggle)}
+          placeholderValue="Search on Facebook"
+        />
         {SearchToggle && (
           <div
             ref={ref}
@@ -58,7 +61,9 @@ export default function Header() {
       <div className="col-span-2 place-self-center">
         <HeaderBar />
       </div>
-      <div className="col-span-1 justify-self-end"><HeaderMenu /></div>
+      <div className="col-span-1 justify-self-end">
+        <HeaderMenu />
+      </div>
     </header>
   );
 }

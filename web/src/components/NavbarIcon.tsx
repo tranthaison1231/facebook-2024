@@ -1,7 +1,8 @@
+
 import NavbarIconsImages from "../assets/images/navbar-icon.png";
 
 interface NavbarIconProps {
-  name: 'friends' | 'memories' | 'saved' | 'group' | 'video'
+  name: 'friends' | 'memories' | 'saved' | 'group' | 'video' | 'pages'
 }
 
 export default function NavbarIcon({name}:NavbarIconProps) {
@@ -20,6 +21,9 @@ export default function NavbarIcon({name}:NavbarIconProps) {
     },
     video : {
       backgroundPosition: "0px -481px",
+    },
+    pages : {
+      backgroundPosition: "0px -107px",
     }
   }
   return (
@@ -29,7 +33,7 @@ export default function NavbarIcon({name}:NavbarIconProps) {
         backgroundPosition: icons[name].backgroundPosition,
         backgroundSize: "auto",
       }}
-      className="size-[36px] inline-block bg-no-repeat "
+      className="size-9 inline-block bg-no-repeat "
     ></i>
   );
 }
