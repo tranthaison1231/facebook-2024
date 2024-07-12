@@ -93,7 +93,6 @@ const showMessageAction = () => {
 };
 function HeaderMenu() {
   const [showDropDown, dispatch] = useReducer(showReducer, initalShowDropDown);
-  console.log(showDropDown);
   const ref = useRef(null);
   useClickOutside({ ref, onClickOutside: () => dispatch(hideAllAction()) });
   return (

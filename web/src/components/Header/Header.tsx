@@ -29,6 +29,7 @@ export default function Header() {
         <Search
           onclick={() => setSearchToggle(!SearchToggle)}
           placeholderValue="Search on Facebook"
+          
         />
         {SearchToggle && (
           <div

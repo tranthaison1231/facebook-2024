@@ -1,5 +1,5 @@
 
-import NavbarIconsImages from "../assets/images/navbar-icon.png";
+import NavbarIconsImages from "../../assets/images/navbar-icon.png";
 
 interface NavbarIconProps {
   name: 'friends' | 'memories' | 'saved' | 'group' | 'video' | 'pages'

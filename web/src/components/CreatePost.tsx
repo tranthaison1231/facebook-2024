@@ -19,7 +19,7 @@ function CreatePost() {
         </button>
       </div>
       <hr className="my-3"/>
-      <div className="w-full flex justify-around gap-1 cursor-pointer children:p-1">
+      <div className="w-full flex justify-around  cursor-pointer children:px-4 children:py-2">
             <div className="flex flex-row items-center gap-2 hover:bg-gray-100 rounded-lg">
                 <Image src={Camera} alt="camera"/>
                 <p>Live Video</p>

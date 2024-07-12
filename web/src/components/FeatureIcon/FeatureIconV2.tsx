@@ -14,7 +14,7 @@ function FeatureIconV2({ name,size }: FeatureIconProps) {
     },
     LogOut: {
       backgroundPosition: "0px -318px",
-    }
+    },
   };
   return (
     <i

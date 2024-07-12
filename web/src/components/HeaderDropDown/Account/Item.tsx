@@ -1,13 +1,13 @@
 import Radio from "../../Radio";
 import { cn } from "../../../utils/cn";
 interface ItemProps {
-  logoIcon?: JSX.Element;
   title: string;
+  logoIcon?: JSX.Element;
   search?: JSX.Element;
   directIcon?: JSX.Element;
   content?: string;
   radio?: any;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function Item({
@@ -22,11 +22,11 @@ function Item({
     
     <div
       className={cn(" rounded-md mx-2 pl-2 py-1 flex items-start gap-1 ", {
-        "hover:bg-gray-200 cursor-pointer group items-center": !radio ,
+        "hover:bg-gray-100 cursor-pointer group items-center": !radio ,
       })}
       onClick={onClick}
     >
-      {logoIcon && <div className="flex items-center gap-2 p-2.5 bg-gray-200 rounded-full group-hover:bg-gray-300 cursor-pointer relative">
+      {logoIcon && <div className="flex items-center gap-2 p-2.5 bg-gray-100 rounded-full group-hover:bg-gray-200 cursor-pointer relative">
         {logoIcon}
       </div>}
       <div className={cn("flex grow items-center justify-between pr-3",{"-mt-3" : radio})}>

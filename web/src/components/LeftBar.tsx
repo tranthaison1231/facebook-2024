@@ -1,12 +1,22 @@
 import { Link } from "react-router-dom";
 import Image from "./Image";
-import avatar from '../assets/images/sontung.jpeg'
+import avatar from "../assets/images/sontung.jpeg";
 import { cn } from "../utils/cn";
-import NavbarIcon from "./NavbarIcon";
+import NavbarIcon from "./FeatureIcon/NavbarIcon";
 
 const MENUS = [
-  { label: "Nguyễn Thành Hiếu", link: "/", icon: <Image src={avatar} alt='avatar' className="rounded-full size-10 object-cover" /> },
-  { label: "Friends", link: "/friends", icon: <NavbarIcon name="friends" />}, 
+  {
+    label: "Nguyễn Thành Hiếu",
+    link: "/",
+    icon: (
+      <Image
+        src={avatar}
+        alt="avatar"
+        className="rounded-full size-10 object-cover"
+      />
+    ),
+  },
+  { label: "Friends", link: "/friends", icon: <NavbarIcon name="friends" /> },
   {
     label: "Memories",
     link: "/onthisday",
@@ -33,14 +43,16 @@ interface NavbarProps {
   className?: string;
 }
 
-export default function Navbar({ className }: NavbarProps) {
+function LeftBar({ className }: NavbarProps) {
   return (
-    <div className={cn("pt-4 px-3 hidden lg:block", className)}>
+    <div className={cn("fixed pt-4 px-3 hidden xl:block", className)}>
       {MENUS.map((menu) => (
         <div key={menu.link}>
           <Link
             to={menu.link}
-            className={cn("p-2 flex items-center gap-4 font-semibold hover:bg-gray-200 rounded-lg")}
+            className={cn(
+              "p-2 flex items-center gap-4 font-semibold hover:bg-gray-200 rounded-lg"
+            )}
           >
             {menu.icon}
             {menu.label}
@@ -50,3 +62,4 @@ export default function Navbar({ className }: NavbarProps) {
     </div>
   );
 }
+export default LeftBar;
