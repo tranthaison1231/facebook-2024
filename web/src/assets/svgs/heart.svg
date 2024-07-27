@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 16 16">
+    <g fill="none">
+        <use fill="url(#a)" xlink:href="#b" />
+        <use fill="#FF6680" filter="" xlink:href="#b" />
+        <path fill="white"
+            d="M10.473 4C8.275 4 8 5.824 8 5.824S7.726 4 5.528 4c-2.114 0-2.73 2.222-2.472 3.41C3.736 10.55 8 12.75 8 12.75s4.265-2.2 4.945-5.34c.257-1.188-.36-3.41-2.472-3.41" />
+    </g>
+</svg>
