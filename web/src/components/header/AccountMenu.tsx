@@ -1,10 +1,14 @@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import avatar from '@/assets/images/avatar.jpeg'
 import { ChevronDown } from 'lucide-react'
 import AccountMenuContent from './AccountMenuContent'
 
-function AccountMenu() {
+interface AccountMenuProps {
+  avatar: string
+  username: string
+}
+
+function AccountMenu({ avatar, username }: AccountMenuProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -22,7 +26,7 @@ function AccountMenu() {
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-90 p-2">
-        <AccountMenuContent />
+        <AccountMenuContent avatar={avatar} username={username} />
       </PopoverContent>
     </Popover>
   )

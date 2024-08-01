@@ -5,10 +5,27 @@ import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema } from '@/helpers/schema'
+import { login } from '@/apis/auth'
+import { setToken } from '@/helpers/token'
+import { toast } from 'sonner'
+import { useMutation } from '@tanstack/react-query'
 
 export type LoginInputs = z.infer<typeof loginSchema>
 
 export default function Login() {
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: res => {
+      setToken(res.token)
+      document.location.reload()
+    },
+    onError: error => {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    }
+  })
+
   const {
     register,
     handleSubmit,
@@ -19,7 +36,10 @@ export default function Login() {
   })
 
   const onSubmit = async (data: LoginInputs) => {
-    console.log(data)
+    return mutation.mutateAsync({
+      email: data.email,
+      password: data.password
+    })
   }
 
   return (
@@ -43,7 +63,12 @@ export default function Login() {
               {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
               <Input {...register('password')} className="w-99 px-4 py-3.5" placeholder="Password" type="password" />
               {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
-              <Button className="w-full py-7 text-2xl font-bold text-white" size="lg" type="submit">
+              <Button
+                loading={mutation.isPending}
+                className="w-full py-7 text-2xl font-bold text-white"
+                size="lg"
+                type="submit"
+              >
                 Login
               </Button>
             </form>

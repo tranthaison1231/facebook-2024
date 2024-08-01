@@ -4,6 +4,8 @@ import DashboardMenu from './DashboardMenu'
 import MessengerMenu from './MessengerMenu'
 import NotificationDropDown from './NotificationMenu'
 import AccountMenu from './AccountMenu'
+import { useQuery } from '@tanstack/react-query'
+import { getMe } from '@/apis/user'
 
 const MENUS = [
   {
@@ -24,6 +26,11 @@ const MENUS = [
 ]
 
 function HeaderMenu() {
+  const { data } = useQuery({
+    queryKey: ['me'],
+    queryFn: () => getMe()
+  })
+
   return (
     <div className="flex items-center gap-2 pr-4">
       {MENUS.map(menu => (
@@ -42,7 +49,7 @@ function HeaderMenu() {
           <PopoverContent className="w-full shadow-3xl">{menu.dropdown}</PopoverContent>
         </Popover>
       ))}
-      <AccountMenu />
+      <AccountMenu avatar={data?.avatar} username={data?.fullName} />
     </div>
   )
 }

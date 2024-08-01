@@ -1,11 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import avatar from '@/assets/images/avatar.jpeg'
 import PageUserItem from '@/components/PageUserItem'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import * as FeatureIcon from '@/components/feature-icons'
 import Search from '@/components/Search'
 import AccountItem from './AccountItem'
+import { removeToken } from '@/helpers/token'
 
 enum Position {
   root,
@@ -17,7 +17,12 @@ enum Position {
   keyboard
 }
 
-function AccountMenuContent() {
+interface AccountMenuContentProps {
+  username: string
+  avatar: string
+}
+
+function AccountMenuContent({ username, avatar }: AccountMenuContentProps) {
   const [position, setPosition] = useState(Position.root)
   const positions = {
     [Position.root]: {
@@ -32,7 +37,7 @@ function AccountMenuContent() {
                   <span className="sr-only">Loading...</span>
                 </AvatarFallback>
               </Avatar>
-              <p>Sơn Tùng</p>
+              <p>{username}</p>
             </div>
             <div className="mx-2 h-[1.5px] bg-gray-300"></div>
             <PageUserItem avatar={avatar} />
@@ -77,7 +82,10 @@ function AccountMenuContent() {
           <AccountItem
             logoIcon={<FeatureIcon.V2 name="LogOut" />}
             title="Log Out"
-            onClick={() => console.log('Log Out')}
+            onClick={() => {
+              removeToken()
+              document.location.reload()
+            }}
           />
         </div>
       )

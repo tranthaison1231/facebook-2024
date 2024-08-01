@@ -1,6 +1,11 @@
 import { configs } from '../configs/configs'
 
-export const login = async (email: string, password: string) => {
+interface LoginDto {
+  email: string
+  password: string
+}
+
+export const login = async ({ email, password }: LoginDto) => {
   const res = await fetch(`${configs.API_URL}/login`, {
     method: 'POST',
     body: JSON.stringify({
@@ -9,6 +14,10 @@ export const login = async (email: string, password: string) => {
     })
   })
   const json = await res.json()
+
+  if (json.status !== 200) {
+    throw new Error(json.message)
+  }
 
   return json
 }
