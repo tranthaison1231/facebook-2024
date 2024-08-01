@@ -1,19 +1,19 @@
 import { cn } from '@/utils/cn'
-import { Button } from '../ui/button'
 import { X } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import logoFacebook from '@/assets/images/logo-facebook.png'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import avatar from '@/assets/images/avatar.jpeg'
 import global from '@/assets/images/global.png'
 import lock from '@/assets/images/lock.png'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Input } from '../ui/input'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Image from '../Image'
+import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import Image from '@/components/Image'
 
 const formSchema = z.object({
   groupName: z.string().min(2).max(50),
@@ -104,34 +104,43 @@ export default function LeftBarGroupsCreate({ className }: LeftBarGroupsCreatePr
                   <FormItem>
                     <FormControl>
                       <Select onValueChange={field.onChange} defaultValue={field.value} required>
-                        <SelectTrigger className=" rounded-lg p-4">
+                        <SelectTrigger className="rounded-lg p-4">
                           <SelectValue placeholder="Choose privacy" />
                         </SelectTrigger>
-                        <SelectContent className="w-82 h-48">
+                        <SelectContent className="h-48 w-82">
                           <SelectItem value="public">
                             <div className="flex flex-row items-center gap-1 rounded-xl p-2 text-sm hover:bg-gray-200">
                               <div className="rounded-full bg-gray-300">
                                 <Image src={global} alt="global" />
                               </div>
                               <div className="flex grow flex-col overflow-hidden pl-2">
-                                <h4 className=" text-sm font-semibold">Public</h4>
-                                <p className="line-clamp-2 text-xs">{"Anyone can see who's in this group and what they post"}</p>
+                                <h4 className="text-sm font-semibold">Public</h4>
+                                <p className="line-clamp-2 text-xs">
+                                  {"Anyone can see who's in this group and what they post"}
+                                </p>
                               </div>
                             </div>
                           </SelectItem>
                           <SelectItem value="private">
                             <div className="flex flex-row items-center gap-1 rounded-xl p-2 text-sm hover:bg-gray-200">
-                            <div className="rounded-full bg-gray-300">
+                              <div className="rounded-full bg-gray-300">
                                 <Image src={lock} alt="lock" />
                               </div>
                               <div className="flex grow flex-col overflow-hidden pl-2">
-                                <h4 className=" text-sm font-semibold">Private</h4>
-                                <p className="line-clamp-2 text-xs">{"Only members can see who's in the group and what they post"}</p>
+                                <h4 className="text-sm font-semibold">Private</h4>
+                                <p className="line-clamp-2 text-xs">
+                                  {"Only members can see who's in the group and what they post"}
+                                </p>
                               </div>
                             </div>
                           </SelectItem>
-                          <div className='border-t border-gray-300 pb-1'/>
-                         <span className='p-4 text-xs'>Learn more about <a className='text-primary hover:underline cursor-pointer'> group privacy</a></span>
+                          <div className="border-t border-gray-300 pb-1" />
+                          <span className="p-4 text-xs">
+                            Learn more about{' '}
+                            <a className="cursor-pointer text-primary hover:underline" href="test">
+                              group privacy
+                            </a>
+                          </span>
                         </SelectContent>
                       </Select>
                     </FormControl>

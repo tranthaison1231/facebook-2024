@@ -1,8 +1,7 @@
-import configs from '@/configs/configs'
-import httpRequest from '@/utils/httpRequest'
+import request from '@/helpers/request'
 
 export const getSearchUser = async (inputSearch: string, type = 'less') => {
-  const res = await httpRequest.get('/users/search', {
+  const res = await request.get('/users/search', {
     params: {
       q: inputSearch,
       type
@@ -12,8 +11,12 @@ export const getSearchUser = async (inputSearch: string, type = 'less') => {
   return res.data
 }
 
+interface User {
+  fullName: string
+  avatar: string
+}
+
 export const getMe = async () => {
-  const res = await fetch(`${configs.API_URL}/users/me`)
-  const data = await res.json()
-  return data
+  const res = await request.get<User>('/users/me')
+  return res.data
 }

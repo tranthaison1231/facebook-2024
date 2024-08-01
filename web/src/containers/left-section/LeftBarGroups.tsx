@@ -1,14 +1,14 @@
 import { cn } from '@/utils/cn'
-import { Button } from '../ui/button'
 import GroupsItem from './GroupsItem'
 import { Link } from 'react-router-dom'
-import Search from '../Search'
 import { Plus } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import FeatureIconV16 from '../feature-icons/FeatureIconV16'
-import FeatureIconV17 from '../feature-icons/FeatureIconV17'
-import FeatureIconV6 from '../feature-icons/FeatureIconV6'
-import FeatureIconV3 from '../feature-icons/FeatureIconV3'
+import FeatureIconV16 from '@/components/feature-icons/FeatureIconV16'
+import FeatureIconV17 from '@/components/feature-icons/FeatureIconV17'
+import FeatureIconV6 from '@/components/feature-icons/FeatureIconV6'
+import FeatureIconV3 from '@/components/feature-icons/FeatureIconV3'
+import Search from '@/components/Search'
+import { Button } from '@/components/ui/button'
 interface NavbarProps {
   className?: string
 }

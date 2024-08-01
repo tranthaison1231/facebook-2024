@@ -9,6 +9,7 @@ import { login } from '@/apis/auth'
 import { setToken } from '@/helpers/token'
 import { toast } from 'sonner'
 import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 
 export type LoginInputs = z.infer<typeof loginSchema>
 
@@ -20,8 +21,8 @@ export default function Login() {
       document.location.reload()
     },
     onError: error => {
-      if (error instanceof Error) {
-        toast.error(error.message)
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message)
       }
     }
   })
@@ -35,12 +36,11 @@ export default function Login() {
     resolver: zodResolver(loginSchema)
   })
 
-  const onSubmit = async (data: LoginInputs) => {
-    return mutation.mutateAsync({
+  const onSubmit = async (data: LoginInputs) =>
+    mutation.mutate({
       email: data.email,
       password: data.password
     })
-  }
 
   return (
     <div className="m-auto flex items-center justify-center space-y-3 lg:p-32">

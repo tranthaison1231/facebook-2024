@@ -1,7 +1,7 @@
 import avatar from '@/assets/images/avatar.jpeg'
+import Image from '@/components/Image'
+import { Button } from '@/components/ui/button'
 import { Ellipsis } from 'lucide-react'
-import Image from '../Image'
-import { Button } from '../ui/button'
 
 function MessengerItem() {
   return (

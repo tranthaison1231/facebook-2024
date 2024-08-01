@@ -3,7 +3,7 @@ import { useState, forwardRef } from 'react'
 import noImage from '@/assets/images/no-image.png'
 
 interface ImageProps {
-  src: string
+  src?: string
   alt: string
   className?: string
   fallback?: string

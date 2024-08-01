@@ -1,5 +1,5 @@
-import Image from '../Image'
 import avatar from '@/assets/images/avatar.jpeg'
+import Image from '@/components/Image'
 
 export default function GroupsItem() {
   return (

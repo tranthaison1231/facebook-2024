@@ -1,9 +1,9 @@
-import PostHeader from '@/features/home/components/post-header'
-import LeftBarHome from '@/components/left-section/LeftBarHome'
+import LeftBarHome from '@/containers/left-section/LeftBarHome'
 import Stories from '@/features/home/components/stories/Stories'
 import RightSection from '@/features/home/components/right-section/RightSection'
 import PostListHome from '@/features/home/containers/PostListHome'
 import { useIsMobile } from '@/hooks/useIsMobile'
+import PostHeader from '@/features/home/containers/PostHeader'
 
 export default function Home() {
   const isMobile = useIsMobile()

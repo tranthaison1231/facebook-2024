@@ -2,19 +2,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ChevronDown } from 'lucide-react'
 import AccountMenuContent from './AccountMenuContent'
+import { useGetMe } from '@/hooks/useGetMe'
 
-interface AccountMenuProps {
-  avatar: string
-  username: string
-}
-
-function AccountMenu({ avatar, username }: AccountMenuProps) {
+function AccountMenu() {
+  const { data } = useGetMe()
   return (
     <Popover>
       <PopoverTrigger asChild>
         <div className="group relative">
           <Avatar className="size-10 cursor-pointer">
-            <AvatarImage src={avatar} />
+            <AvatarImage src={data?.avatar} />
             <AvatarFallback>
               <span className="sr-only">Loading...</span>
             </AvatarFallback>
@@ -26,7 +23,7 @@ function AccountMenu({ avatar, username }: AccountMenuProps) {
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-90 p-2">
-        <AccountMenuContent avatar={avatar} username={username} />
+        <AccountMenuContent avatar={data?.avatar} username={data?.fullName} />
       </PopoverContent>
     </Popover>
   )

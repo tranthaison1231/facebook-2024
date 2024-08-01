@@ -2,7 +2,7 @@ import { Spin } from '../assets/svgs'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 
 interface PageItemUserProps {
-  avatar: string
+  avatar?: string
 }
 
 function PageUserItem({ avatar }: PageItemUserProps) {

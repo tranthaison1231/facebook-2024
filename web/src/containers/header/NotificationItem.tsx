@@ -1,6 +1,6 @@
 import avatar from '@/assets/images/avatar.jpeg'
+import AvatarWithIcon from '@/components/AvatarWithIcon'
 import FeatureIconV8 from '@/components/feature-icons/FeatureIconV8'
-import AvatarWithIcon from '../AvatarWithIcon'
 
 function NotificationItem() {
   return (

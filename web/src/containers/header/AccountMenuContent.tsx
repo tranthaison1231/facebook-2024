@@ -18,8 +18,8 @@ enum Position {
 }
 
 interface AccountMenuContentProps {
-  username: string
-  avatar: string
+  username?: string
+  avatar?: string
 }
 
 function AccountMenuContent({ username, avatar }: AccountMenuContentProps) {

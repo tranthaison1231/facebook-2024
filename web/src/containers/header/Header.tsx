@@ -3,13 +3,13 @@ import { Link, useLocation } from 'react-router-dom'
 import { cn } from '@/utils/cn'
 import avatar from '@/assets/images/avatar.jpeg'
 import HeaderBar from './HeaderBar'
-import Search from '../Search'
-import SearchItem from '../SearchItem'
 import logoFacebook from '@/assets/images/logo-facebook.png'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ArrowLeft } from '@/assets/svgs'
 import { useClickOutside } from '@/hooks/useClickOutSize'
 import HeaderMenu from './HeaderMenu'
+import Search from '@/components/Search'
+import SearchItem from '@/components/SearchItem'
 
 export default function Header() {
   const [searchToggle, setSearchToggle] = useState(false)

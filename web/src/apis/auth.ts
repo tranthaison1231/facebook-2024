@@ -1,4 +1,4 @@
-import { configs } from '../configs/configs'
+import request from '@/helpers/request'
 
 interface LoginDto {
   email: string
@@ -6,30 +6,18 @@ interface LoginDto {
 }
 
 export const login = async ({ email, password }: LoginDto) => {
-  const res = await fetch(`${configs.API_URL}/login`, {
-    method: 'POST',
-    body: JSON.stringify({
-      email: email,
-      password: password
-    })
+  const res = await request.post('/login', {
+    email,
+    password
   })
-  const json = await res.json()
 
-  if (json.status !== 200) {
-    throw new Error(json.message)
-  }
-
-  return json
+  return res.data
 }
 
 export const signUp = async (email: string, password: string) => {
-  const res = await fetch(`${configs.API_URL}/signup`, {
-    method: 'POST',
-    body: JSON.stringify({
-      email: email,
-      password: password
-    })
+  const res = await request.post('/sign-up', {
+    email,
+    password
   })
-  const json = await res.json()
-  return json
+  return res.data
 }

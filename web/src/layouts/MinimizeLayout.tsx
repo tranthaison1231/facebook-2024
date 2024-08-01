@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Login from '@/pages/login'
-import MinimizeHeader from '@/components/header/MinimizeHeader'
+import MinimizeHeader from '@/containers/header/MinimizeHeader'
 
 export default function MinimizeLayout() {
   const token = localStorage.getItem('token')

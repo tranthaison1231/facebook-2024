@@ -1,4 +1,3 @@
-import Search from '../Search'
 import FeatureIconV7 from '@/components/feature-icons/FeatureIconV7'
 import FeatureIconV10 from '@/components/feature-icons/FeatureIconV10'
 import FeatureIconV11 from '@/components/feature-icons/FeatureIconV11'
@@ -10,8 +9,9 @@ import GamingVideo from '@/assets/images/gaming-video.png'
 import PlayGame from '@/assets/images/play-games.png'
 import Video from '@/assets/images/video.png'
 import NavbarIcon from '@/components/feature-icons/NavbarIcon'
-import Image from '../Image'
 import MenuItem, { CreateItem } from './MenuItem'
+import Image from '@/components/Image'
+import Search from '@/components/Search'
 
 export const SOCIAL_MENUS = [
   {

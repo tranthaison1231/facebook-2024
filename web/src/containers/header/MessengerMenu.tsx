@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 import { cn } from '@/utils/cn'
-import Search from '../Search'
-import FeatureIconV3 from '../feature-icons/FeatureIconV3'
-import FeatureIconV9 from '../feature-icons/FeatureIconV9'
 import MessengerItem from './MessengerItem'
+import FeatureIconV3 from '@/components/feature-icons/FeatureIconV3'
+import FeatureIconV9 from '@/components/feature-icons/FeatureIconV9'
+import Search from '@/components/Search'
 
 function MessengerMenu() {
   const [View, setView] = useState({ inbox: true, notRead: false })
