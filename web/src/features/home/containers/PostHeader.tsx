@@ -6,16 +6,17 @@ import smile from '@/assets/images/smile.png'
 import { Button } from '@/components/ui/button'
 import picture from '@/assets/images/picture.png'
 import CreatePost, { Position } from '../components/post-header/CreatePost'
-import { useGetMe } from '@/hooks/useGetMe'
+import { useOutletContext } from 'react-router-dom'
+import { User } from '@/apis/user'
 
 function PostHeader() {
-  const { data } = useGetMe()
+  const { me } = useOutletContext<{ me: User }>()
 
   const [contentPostHeader, setContentPostHeader] = useState('')
   return (
     <div className={'w-125 justify-self-center rounded-lg bg-white px-4 pb-2.5 pt-3 shadow-md'}>
       <div className="flex items-center gap-2 text-lg">
-        <Image className="size-10 rounded-full" src={data?.avatar} alt={avatar} />
+        <Image className="size-10 rounded-full" src={me?.avatar} alt={avatar} />
         <CreatePost
           handleContentPostHeader={setContentPostHeader}
           trigger={
@@ -23,9 +24,7 @@ function PostHeader() {
               className="flex w-full min-w-72 justify-start rounded-full p-2.5 text-lg font-normal text-gray-500"
               variant="secondary"
             >
-              <p className="pl-2">
-                {contentPostHeader ? contentPostHeader : `${data?.fullName}, what's on your mind?`}
-              </p>
+              <p className="pl-2">{contentPostHeader ? contentPostHeader : `${me?.fullName}, what's on your mind?`}</p>
             </Button>
           }
         />

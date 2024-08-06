@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 import { cn } from '@/utils/cn'
 import Image from '@/components/Image'
 import climateScienceCenter from '@/assets/images/climate-center.png'
@@ -13,7 +13,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import NavbarIcon from '@/components/feature-icons/NavbarIcon'
 import FeatureIconV10 from '@/components/feature-icons/FeatureIconV10'
 import FeatureIconV12 from '@/components/feature-icons/FeatureIconV12'
-import { useGetMe } from '@/hooks/useGetMe'
+import { User } from '@/apis/user'
 
 interface NavbarProps {
   className?: string
@@ -22,13 +22,13 @@ interface NavbarProps {
 function LeftMenuHome({ className }: NavbarProps) {
   const [isToggle, setIsToggle] = useState(false)
 
-  const { data } = useGetMe()
+  const { me } = useOutletContext<{ me: User }>()
 
   const MENUS = [
     {
-      label: data?.fullName,
+      label: me?.fullName,
       link: '/',
-      icon: <Image src={data?.avatar} alt="avatar" className="size-9 rounded-full object-cover" />
+      icon: <Image src={me?.avatar} alt="avatar" className="size-9 rounded-full object-cover" />
     },
     { label: 'Friends', link: '/friends', icon: <NavbarIcon name="friends" /> },
     {
