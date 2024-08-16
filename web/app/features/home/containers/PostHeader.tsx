@@ -5,14 +5,18 @@ import avatar from '@/assets/images/avatar.jpeg'
 import smile from '@/assets/images/smile.png'
 import { Button } from '@/components/ui/button'
 import picture from '@/assets/images/picture.png'
-import CreatePost, { Position } from '../components/post-header/CreatePost'
+import CreatePost from '../components/create-post'
 import { useOutletContext } from '@remix-run/react'
 import { User } from '@/apis/user'
+import { Position, usePositionStore } from '../stores/position'
 
 function PostHeader() {
   const { me } = useOutletContext<{ me: User }>()
 
   const [contentPostHeader, setContentPostHeader] = useState('')
+
+  const setPosition = usePositionStore(state => state.setPosition)
+
   return (
     <div className={'w-125 justify-self-center rounded-lg bg-white px-4 pb-2.5 pt-3 shadow-md'}>
       <div className="flex items-center gap-2 text-lg">
@@ -47,9 +51,15 @@ function PostHeader() {
         />
         <CreatePost
           handleContentPostHeader={setContentPostHeader}
-          currentPosition={Position.FeelingActivity}
           trigger={
-            <Button size={'default'} variant={'ghost'} className="basis-1/3 items-center gap-2">
+            <Button
+              size={'default'}
+              variant={'ghost'}
+              className="basis-1/3 items-center gap-2"
+              onClick={() => {
+                setPosition(Position.FeelingActivity)
+              }}
+            >
               <Image src={smile} alt="feeling" />
               <p>Feeling/activity</p>
             </Button>
