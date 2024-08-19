@@ -8,14 +8,14 @@ import picture from '@/assets/images/picture.png'
 import CreatePost from '../components/create-post'
 import { useOutletContext } from '@remix-run/react'
 import { User } from '@/apis/user'
-import { Position, usePositionStore } from '../stores/position'
+import { Position, PositionProvider, usePosition } from '../stores/position'
 
 function PostHeader() {
   const { me } = useOutletContext<{ me: User }>()
 
   const [contentPostHeader, setContentPostHeader] = useState('')
 
-  const setPosition = usePositionStore(state => state.setPosition)
+  const { setPosition } = usePosition()
 
   return (
     <div className={'w-125 justify-self-center rounded-lg bg-white px-4 pb-2.5 pt-3 shadow-md'}>
@@ -70,4 +70,12 @@ function PostHeader() {
   )
 }
 
-export default PostHeader
+function PostHeaderContainer() {
+  return (
+    <PositionProvider>
+      <PostHeader />
+    </PositionProvider>
+  )
+}
+
+export default PostHeaderContainer

@@ -6,8 +6,9 @@ import ShowMore from './ShowMore'
 import CheckIn from './CheckIn'
 import PostAudience from './PostAudience'
 
-import { Position, usePositionStore } from '@/features/home/stores/position'
+import { Position, usePosition } from '@/features/home/stores/position'
 import { CreatePostDefault } from './CreatePostDefault'
+import { useState } from 'react'
 
 interface CreatePostProps {
   isAddPhoto?: boolean
@@ -26,11 +27,11 @@ export enum PostAudienceOptions {
 }
 
 function CreatePost({ trigger }: CreatePostProps) {
-  const setPosition = usePositionStore(state => state.setPosition)
-  const position = usePositionStore(state => state.position)
+  const { setPosition, position } = usePosition()
+  const [isOpen, setIsOpen] = useState(false)
 
   const PostContent = {
-    [Position.Root]: <CreatePostDefault />,
+    [Position.Root]: <CreatePostDefault onSuccess={() => setIsOpen(false)} />,
     [Position.TagPeople]: <TagPeople onBack={() => setPosition(Position.Root)} />,
     [Position.FeelingActivity]: <FeelingActivity onBack={() => setPosition(Position.Root)} />,
     [Position.Gif]: <Gif onBack={() => setPosition(Position.Root)} />,
@@ -44,9 +45,12 @@ function CreatePost({ trigger }: CreatePostProps) {
       />
     )
   }
+  const onOpenChange = () => {
+    setIsOpen(!isOpen)
+  }
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger className="grow">{trigger}</DialogTrigger>
       <DialogContent
         className="w-[500px] pb-2 shadow-3xl"

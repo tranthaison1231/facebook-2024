@@ -1,6 +1,6 @@
 import { DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import FeatureIconV3 from '@/components/feature-icons/FeatureIconV3'
-import { Position, usePositionStore } from '../../stores/position'
+import { Position, usePosition } from '../../stores/position'
 import { POST_OPTIONS } from './CreatePostDefault'
 
 interface ShowMoreProps {
@@ -9,7 +9,8 @@ interface ShowMoreProps {
 }
 
 function ShowMore({ handleOpenAddPhoto, onBack }: ShowMoreProps) {
-  const setPosition = usePositionStore(state => state.setPosition)
+  const { setPosition } = usePosition()
+
   return (
     <>
       <DialogHeader className="relative">

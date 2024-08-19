@@ -24,6 +24,12 @@ export default [
         {
           allowInterfaces: 'always'
         }
+      ],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_'
+        }
       ]
     },
     ignores: ['tailwind.config.js', '.prettierrc.cjs']

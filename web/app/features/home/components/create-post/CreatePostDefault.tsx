@@ -1,8 +1,8 @@
-import { DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useState } from 'react'
 import UserInfo from './UserInfo'
 import { cn } from '@/utils/cn'
-import { Position, usePositionStore } from '@/features/home/stores/position'
+import { Position, usePosition } from '@/features/home/stores/position'
 import Image from '@/components/Image'
 import { LucideSmile } from 'lucide-react'
 import { AddPhoto } from './AddPhoto'
@@ -19,6 +19,9 @@ import { createPostSchema } from '@/helpers/schema'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { uploadImage } from '@/helpers/upload-image'
+import { useMutation } from '@tanstack/react-query'
+import { createPost } from '@/apis/post'
+import { toast } from 'sonner'
 
 export const POST_OPTIONS = [
   {
@@ -55,9 +58,21 @@ export const POST_OPTIONS = [
 
 export type AddPostInputs = z.infer<typeof createPostSchema>
 
-export const CreatePostDefault = () => {
+interface CreatePostDefaultProps {
+  onSuccess: () => void
+}
+
+export const CreatePostDefault = ({ onSuccess }: CreatePostDefaultProps) => {
   const [isOpenAddPhoto, setIsOpenAddPhoto] = useState(true)
-  const setPosition = usePositionStore(state => state.setPosition)
+  const { setPosition } = usePosition()
+
+  const createPostMutation = useMutation({
+    mutationFn: createPost,
+    onSuccess: () => {
+      toast.success('Post created successfully')
+      onSuccess()
+    }
+  })
 
   const { register, handleSubmit, watch, setValue } = useForm<AddPostInputs>({
     mode: 'onBlur',
@@ -68,19 +83,22 @@ export const CreatePostDefault = () => {
     }
   })
   const watchedContent = watch('content')
-  const watchedImage = watch('images')
+  const watchedImages = watch('images')
 
-  const isDisabledSubmitButton = watchedContent === '' && watchedImage.length === 0
+  const isDisabledSubmitButton = watchedContent === '' && watchedImages.length === 0
 
   const onSubmit = async (data: AddPostInputs) => {
-    console.log(data)
+    await createPostMutation.mutateAsync(data)
   }
 
-  const onUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    const url = await uploadImage(file)
-    setValue('images', [url])
+  const onUploadImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+
+    if (!files) return
+
+    const urls = await Promise.all([...files].map(uploadImage))
+
+    setValue('images', urls)
   }
 
   return (
@@ -90,7 +108,7 @@ export const CreatePostDefault = () => {
         <div className="border-b border-gray-300"></div>
         <UserInfo onClick={() => setPosition(Position.PostAudience)} />
       </DialogHeader>
-      <DialogDescription>
+      <div className="mb-2 max-h-[500px] overflow-y-scroll">
         <div className={cn('group relative h-[155px] cursor-text px-4', { 'h-fit': isOpenAddPhoto })}>
           <textarea
             className={cn('w-full resize-none text-2xl text-black outline-none placeholder:text-gray-700', {
@@ -110,10 +128,10 @@ export const CreatePostDefault = () => {
             })}
           />
         </div>
-      </DialogDescription>
-      {isOpenAddPhoto && (
-        <AddPhoto value={watchedImage} onChange={onUploadImage} onClose={() => setIsOpenAddPhoto(false)} />
-      )}
+        {isOpenAddPhoto && (
+          <AddPhoto value={watchedImages} onChange={onUploadImages} onClose={() => setIsOpenAddPhoto(false)} />
+        )}
+      </div>
       <div className="mx-4 mb-4 flex items-center justify-between rounded-lg border border-gray-400 px-4 py-2">
         <div className="cursor-pointer font-semibold text-black" onClick={() => setPosition(Position.ShowMore)}>
           Add to your post
@@ -154,7 +172,12 @@ export const CreatePostDefault = () => {
         </div>
       </div>
       <DialogFooter className="mx-4 pb-2">
-        <Button className="w-full" variant="default" disabled={isDisabledSubmitButton}>
+        <Button
+          className="w-full"
+          variant="default"
+          disabled={isDisabledSubmitButton}
+          loading={createPostMutation.isPending}
+        >
           Post
         </Button>
       </DialogFooter>

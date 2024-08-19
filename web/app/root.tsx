@@ -1,4 +1,5 @@
-import './style.css'
+import './styles/globals.css'
+import './styles/sonner.css'
 import { Toaster } from 'sonner'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
