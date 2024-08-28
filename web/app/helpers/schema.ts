@@ -1,11 +1,12 @@
+import { errorMessages } from '@/constants/error-messages'
 import * as z from 'zod'
 
 export const loginSchema = z.object({
-  email: z.string().email({ message: 'Email is not valid!' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters!' })
+  email: z.string().email({ message: errorMessages.email }),
+  password: z.string().min(6, { message: errorMessages.password })
 })
 
 export const createPostSchema = z.object({
-  content: z.string().min(1, { message: 'Content must not be empty!' }),
+  content: z.string().min(1, { message: errorMessages.content }),
   images: z.array(z.string())
 })

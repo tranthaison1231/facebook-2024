@@ -1,21 +1,29 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { vitePlugin as remix } from '@remix-run/dev'
 import { flatRoutes } from 'remix-flat-routes'
+import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    remix({
-      ssr: false,
-      ignoredRouteFiles: ['**/.*'],
-      routes: async defineRoutes => {
-        return flatRoutes('pages', defineRoutes)
-      },
-      appDirectory: 'app'
-    }),
+    !process.env.VITEST
+      ? remix({
+          ssr: false,
+          ignoredRouteFiles: ['**/.*'],
+          routes: async defineRoutes => {
+            return flatRoutes('pages', defineRoutes)
+          },
+          appDirectory: 'app'
+        })
+      : react(),
     svgr(),
     tsconfigPaths()
-  ]
+  ],
+  test: {
+    include: ['**/*.test.{ts,tsx}'],
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./tests/setup.ts']
+  }
 })

@@ -1,18 +1,10 @@
 import './styles/globals.css'
 import './styles/sonner.css'
 import { Toaster } from 'sonner'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { QueryClientProvider } from '@/providers/react-query'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 4
-    }
-  }
-})
-
-export default function App() {
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -20,16 +12,23 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
-        <title>Remix App</title>
       </head>
       <body>
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider>
           <Toaster richColors position="top-right" />
-          <Outlet />
+          {children}
         </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
     </html>
   )
+}
+
+export default function App() {
+  return <Outlet />
+}
+
+export function HydrateFallback() {
+  return <p>Loading...</p>
 }
