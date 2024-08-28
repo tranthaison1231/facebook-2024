@@ -2,33 +2,26 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import Login from '.'
 import { QueryClientProvider } from '@/providers/react-query'
 import { errorMessages } from '@/constants/error-messages'
-import request from '@/helpers/request'
+import { getToken } from '@/helpers/token'
+import { loginDtoMock, loginMockError, loginMockSuccess } from '@/mocks'
+import { Toaster } from 'sonner'
 
 describe('Login component', () => {
   const renderLogin = () => {
     render(
       <QueryClientProvider>
+        <Toaster richColors position="top-right" />
         <Login />
       </QueryClientProvider>
     )
   }
 
-  afterEach(async () => {
-    vi.restoreAllMocks()
-  })
-
-  it('should render the login form with email, password and submit button', () => {
+  it('should render the facebook description', () => {
     renderLogin()
-    const emailInput = screen.getByPlaceholderText(/Email address and phone number/i)
-    const passwordInput = screen.getByPlaceholderText(/Password/i)
-    const submitButton = screen.getByRole('button', { name: /login/i })
     const facebookDescription = screen.getByText(
       /Facebook giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn./i
     )
 
-    expect(emailInput).toBeInTheDocument()
-    expect(passwordInput).toBeInTheDocument()
-    expect(submitButton).toBeInTheDocument()
     expect(facebookDescription).toBeInTheDocument()
   })
 
@@ -46,31 +39,47 @@ describe('Login component', () => {
     expect(passwordError).toBeInTheDocument()
   })
 
-  it('should call api login when the form is submitted', async () => {
-    renderLogin()
+  it('should set token to local storage and reload the page when login successfully', async () => {
+    Object.defineProperty(window, 'location', {
+      value: { reload: vi.fn() }
+    })
 
-    const email = 'ttson.1711@gmail.com'
-    const password = '123456'
+    renderLogin()
 
     const emailInput = screen.getByPlaceholderText(/Email address and phone number/i)
     const passwordInput = screen.getByPlaceholderText(/Password/i)
     const submitButton = screen.getByRole('button', { name: /login/i })
 
-    fireEvent.input(emailInput, { target: { value: email } })
-    fireEvent.input(passwordInput, { target: { value: password } })
+    fireEvent.input(emailInput, { target: { value: loginDtoMock.email } })
+    fireEvent.input(passwordInput, { target: { value: loginDtoMock.password } })
 
     await waitFor(() => {
       fireEvent.click(submitButton)
     })
-    expect(submitButton).toBeDisabled()
 
-    const loadingSpinner = screen.getByTestId('loading-spinner')
+    expect(getToken()).toBe(loginMockSuccess.token)
 
-    expect(loadingSpinner).toBeInTheDocument()
+    expect(window.location.reload).toHaveBeenCalled()
+  })
 
-    vi.spyOn(request, 'post').mockResolvedValue({ token: 'token' })
+  it('should display error message when login failed', async () => {
+    renderLogin()
 
-    expect(request.post).toHaveBeenCalledTimes(1)
-    expect(request.post).toHaveBeenCalledWith('/login', { email, password })
+    const emailInput = screen.getByPlaceholderText(/Email address and phone number/i)
+    const passwordInput = screen.getByPlaceholderText(/Password/i)
+    const submitButton = screen.getByRole('button', { name: /login/i })
+
+    const wrongPassword = 'wrong-password'
+
+    fireEvent.input(emailInput, { target: { value: loginDtoMock.email } })
+    fireEvent.input(passwordInput, { target: { value: wrongPassword } })
+
+    await waitFor(() => {
+      fireEvent.click(submitButton)
+    })
+
+    const errorMessage = await screen.findByText(loginMockError.message)
+
+    expect(errorMessage).toBeInTheDocument()
   })
 })

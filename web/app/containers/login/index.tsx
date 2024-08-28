@@ -2,23 +2,20 @@ import RegisterButton from '@/components/RegisterButton'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginSchema } from '@/helpers/schema'
+import { LoginInputs, loginSchema } from '@/helpers/schema'
 import { login } from '@/apis/auth'
 import { setToken } from '@/helpers/token'
 import { toast } from 'sonner'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-export type LoginInputs = z.infer<typeof loginSchema>
-
 export default function Login() {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: res => {
       setToken(res.token)
-      document.location.reload()
+      window.location.reload()
     },
     onError: error => {
       if (error instanceof AxiosError) {
