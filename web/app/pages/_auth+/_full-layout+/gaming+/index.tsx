@@ -1,4 +1,4 @@
-import LeftBarGroups from '@/containers/left-section/LeftBarGroups'
+import LeftBarGroups from '@/features/home/components/left-section/LeftBarGroups'
 import { Outlet } from '@remix-run/react'
 
 export default function Gaming() {

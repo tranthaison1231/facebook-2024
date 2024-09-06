@@ -1,8 +1,8 @@
-import { cn } from '@/utils/cn'
+import { cn } from '@/core/utils/cn'
 import avatar from '@/assets/images/avatar.jpeg'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/core/components/ui/avatar'
 import { X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/core/components/ui/button'
 
 interface DiscoverGroupItemProps {
   title: string

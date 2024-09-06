@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import Image from '@/components/Image'
+import Image from '@/core/components/Image'
 import camera from '@/assets/images/camera.png'
 import avatar from '@/assets/images/avatar.jpeg'
 import smile from '@/assets/images/smile.png'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/core/components/ui/button'
 import picture from '@/assets/images/picture.png'
 import CreatePost from '../components/create-post'
 import { useOutletContext } from '@remix-run/react'
-import { User } from '@/apis/user'
+import { User } from '@/core/apis/user'
 import { Position, PositionProvider, usePosition } from '../stores/position'
 
 function PostHeader() {

@@ -1,9 +1,9 @@
-import FeatureIconV12 from '@/components/feature-icons/FeatureIconV12'
-import FeatureIconV4 from '@/components/feature-icons/FeatureIconV4'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { cn } from '@/utils/cn'
+import FeatureIconV12 from '@/core/components/feature-icons/FeatureIconV12'
+import FeatureIconV4 from '@/core/components/feature-icons/FeatureIconV4'
+import { Button } from '@/core/components/ui/button'
+import { Input } from '@/core/components/ui/input'
+import { Label } from '@/core/components/ui/label'
+import { cn } from '@/core/utils/cn'
 import { X } from 'lucide-react'
 
 interface AddPhotoProps {

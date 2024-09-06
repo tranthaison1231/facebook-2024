@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTrigger } from '@/core/components/ui/dialog'
 import TagPeople from './TagPeople'
 import FeelingActivity from './FeelingActivity'
 import Gif from './Gif'

@@ -1,6 +1,6 @@
 import avatar from '@/assets/images/avatar.jpeg'
-import Image from '@/components/Image'
-import { Button } from '@/components/ui/button'
+import Image from '@/core/components/Image'
+import { Button } from '@/core/components/ui/button'
 import { Ellipsis } from 'lucide-react'
 
 export default function () {

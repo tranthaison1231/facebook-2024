@@ -1,6 +1,6 @@
-import { DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import Search from '@/components/Search'
-import FeatureIconV3 from '@/components/feature-icons/FeatureIconV3'
+import { DialogHeader, DialogTitle } from '@/core/components/ui/dialog'
+import Search from '@/core/components/Search'
+import FeatureIconV3 from '@/core/components/feature-icons/FeatureIconV3'
 
 interface CheckInProps {
   onBack: () => void

@@ -1,9 +1,9 @@
-import { DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Label } from '@/components/ui/label'
-import { Checkbox } from '@/components/ui/checkbox'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Button } from '@/components/ui/button'
-import FeatureIconV3 from '@/components/feature-icons/FeatureIconV3'
+import { DialogHeader, DialogTitle } from '@/core/components/ui/dialog'
+import { Label } from '@/core/components/ui/label'
+import { Checkbox } from '@/core/components/ui/checkbox'
+import { RadioGroup, RadioGroupItem } from '@/core/components/ui/radio-group'
+import { Button } from '@/core/components/ui/button'
+import FeatureIconV3 from '@/core/components/feature-icons/FeatureIconV3'
 import { POST_AUDIENCE_OPTIONS } from './UserInfo'
 
 interface PostAudienceProps {

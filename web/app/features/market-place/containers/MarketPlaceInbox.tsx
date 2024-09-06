@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { cn } from '@/utils/cn'
-import { Button } from '@/components/ui/button'
+import { cn } from '@/core/utils/cn'
+import { Button } from '@/core/components/ui/button'
 import MarketplaceNotificationItem from '../components/MarketplaceNotificationItem'
 enum Tabs {
   Selling = 'Selling',

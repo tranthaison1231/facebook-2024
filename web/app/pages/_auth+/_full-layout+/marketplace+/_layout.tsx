@@ -1,3 +1,3 @@
-import MarketplaceLayout from '@/layouts/MarketPlaceLayout'
+import MarketplaceLayout from '@/core/layouts/MarketPlaceLayout'
 
 export default MarketplaceLayout

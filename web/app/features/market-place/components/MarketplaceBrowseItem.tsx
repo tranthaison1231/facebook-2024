@@ -1,5 +1,5 @@
-import Image from '@/components/Image'
-import { cn } from '@/utils/cn'
+import Image from '@/core/components/Image'
+import { cn } from '@/core/utils/cn'
 
 interface MarketplaceBrowseItemProps {
   avatar: string

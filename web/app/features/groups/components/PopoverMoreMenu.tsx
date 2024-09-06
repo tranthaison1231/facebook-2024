@@ -1,14 +1,14 @@
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@/core/components/ui/popover'
 
-import FeatureIconV2 from '@/components/feature-icons/FeatureIconV2'
-import FeatureIconV14 from '@/components/feature-icons/FeatureIconV14'
-import FeatureIconV15 from '@/components/feature-icons/FeatureIconV15'
+import FeatureIconV2 from '@/core/components/feature-icons/FeatureIconV2'
+import FeatureIconV14 from '@/core/components/feature-icons/FeatureIconV14'
+import FeatureIconV15 from '@/core/components/feature-icons/FeatureIconV15'
 import clock from '@/assets/images/clock.png'
 import hideAll from '@/assets/images/hide-all.png'
 import blockUser from '@/assets/images/block-user.png'
 import reportPost from '@/assets/images/report.png'
 import hidePost from '@/assets/images/hide-post.png'
-import Image from '@/components/Image'
+import Image from '@/core/components/Image'
 
 const POSTLIST_MENUS = [
   {

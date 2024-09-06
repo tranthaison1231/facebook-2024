@@ -1,8 +1,8 @@
-import './styles/globals.css'
-import './styles/sonner.css'
+import './core/styles/globals.css'
+import './core/styles/sonner.css'
 import { Toaster } from 'sonner'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
-import { QueryClientProvider } from '@/providers/react-query'
+import { QueryClientProvider } from '@/core/providers/react-query'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

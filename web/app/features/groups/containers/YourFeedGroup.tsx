@@ -2,9 +2,9 @@ import { Ellipsis, X, MessageSquare, ThumbsUp, MessageSquareShare } from 'lucide
 import Like from '@/assets/svgs/like.svg?react'
 import Heart from '@/assets/svgs/heart.svg?react'
 import avatar from '@/assets/images/avatar.jpeg'
-import { Button } from '@/components/ui/button'
-import Image from '@/components/Image'
-import HoverCardInfo from '@/components/HoverCardInfo'
+import { Button } from '@/core/components/ui/button'
+import Image from '@/core/components/Image'
+import HoverCardInfo from '@/core/components/HoverCardInfo'
 import PopoverMoreMenu from '../components/PopoverMoreMenu'
 
 function YourFeedGroup() {

@@ -1,3 +1,3 @@
-import MinimizeLayout from '@/layouts/MinimizeLayout'
+import MinimizeLayout from '@/core/layouts/MinimizeLayout'
 
 export default MinimizeLayout

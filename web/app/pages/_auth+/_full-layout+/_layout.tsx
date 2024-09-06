@@ -1,3 +1,3 @@
-import FullLayout from '@/layouts/FullLayout'
+import FullLayout from '@/core/layouts/FullLayout'
 
 export default FullLayout

@@ -1,4 +1,4 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/core/components/ui/carousel'
 import avatar from '@/assets/images/avatar.jpeg'
 import DiscoverGroupItem from '../components/DiscoverGroupItem'
 

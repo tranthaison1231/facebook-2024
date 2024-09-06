@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import Story from './Story'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-import { cn } from '@/utils/cn'
-import { Button } from '@/components/ui/button'
+import { cn } from '@/core/utils/cn'
+import { Button } from '@/core/components/ui/button'
 
 export default function Stories() {
   const containerRef = useRef<HTMLDivElement>(null)

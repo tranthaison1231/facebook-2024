@@ -1,5 +1,5 @@
 import avatar from '@/assets/images/avatar.jpeg'
-import Image from '@/components/Image'
+import Image from '@/core/components/Image'
 
 function ContactItem() {
   return (
