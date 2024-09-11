@@ -1,6 +1,6 @@
 import configs from '@/core/configs/configs'
 import { LoginInputs } from '@/core/helpers/schema'
-import { loginDtoMock, loginMockError, loginMockSuccess } from '@/core/mocks'
+import { loginDtoMock, loginMockError, loginMockSuccess } from '@/core/mocks/auth'
 import { HttpResponse, http } from 'msw'
 
 const login = http.post<never, LoginInputs>(configs.API_URL + '/login', async ({ request }) => {

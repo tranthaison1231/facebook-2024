@@ -3,7 +3,7 @@ import Login from './Login'
 import { QueryClientProvider } from '@/core/providers/react-query'
 import { errorMessages } from '@/core/constants/error-messages'
 import { getToken } from '@/core/helpers/token'
-import { loginDtoMock, loginMockError, loginMockSuccess } from '@/core/mocks'
+import { loginDtoMock, loginMockError, loginMockSuccess } from '@/core/mocks/auth'
 import { Toaster } from 'sonner'
 
 describe('Login component', () => {

@@ -20,9 +20,20 @@ export interface Post {
   updatedAt: Date
 }
 
-export const getPosts = async () => {
-  const res = await request.get<Post[]>('/posts')
-  return res.data
+export const getPosts = async ({
+  pageParam
+}: {
+  pageParam: number
+}) => {
+  const res = await request.get<{
+    items: Post[]
+    total: number
+    page: number
+    limit: number
+  }>(`/posts?page=${pageParam}&limit=${3}`)
+
+
+  return res.data.items
 }
 
 interface CreatePostDto {

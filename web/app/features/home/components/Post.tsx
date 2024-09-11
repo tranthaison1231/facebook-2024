@@ -57,7 +57,7 @@ function Post({ post }: PostProps) {
           <p className="px-2"> {post.totalLikes} Likes</p>
         </div>
         <div className="flex cursor-pointer items-center justify-center gap-1">
-          <p> {post.comments.length} Comments</p>
+          <p> {post.comments?.length} Comments</p>
         </div>
       </div>
       <div className="px-4">
@@ -79,7 +79,7 @@ function Post({ post }: PostProps) {
         <div className="my-1 border-b border-gray-300" />
         <div className="mt-4">
           {
-            post.comments.map((comment) => (
+            post.comments?.map((comment) => (
               <Comment key={comment.id} comment={comment} />
             ))
           }
@@ -89,4 +89,23 @@ function Post({ post }: PostProps) {
   )
 }
 
+function PostSkeleton() {
+  return (
+    <div data-testid="post-skeleton" className="mb-2 flex w-125 flex-col space-y-2 rounded-lg bg-white shadow-md">
+      <div className="px-3 p-4">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="size-10 rounded-full bg-gray-200" />
+            <div className="h-4 w-28 rounded-md bg-gray-200" />
+            <div className="h-4 w-28 rounded-md bg-gray-200" />
+          </div>
+        </div>
+        <div className="h-80 w-full rounded-md bg-gray-200" />
+      </div>
+    </div>
+  )
+}
+
+
+Post.Skeleton = PostSkeleton
 export default Post

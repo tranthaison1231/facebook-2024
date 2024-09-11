@@ -1,19 +1,21 @@
-import { getPosts } from '@/core/apis/post'
-import { useQuery } from '@tanstack/react-query'
 import Post from '../components/Post'
+import { usePostList } from '../hooks/usePostList'
 
 function PostList() {
-  const { data } = useQuery({
-    queryKey: ['posts'],
-    queryFn: () => getPosts(),
-  })
+  const { posts, lastElementRef, isFetching } = usePostList()
 
-  console.log(data)
   return (
     <div className="my-4 justify-self-center">
-      {data?.map((post) => (
-        <Post key={post.id} post={post} />
+      {posts?.map(post => (
+        <div ref={lastElementRef} key={post.id}>
+          <Post post={post} />
+        </div>
       ))}
+      {isFetching && (
+        <div className="mt-4 space-y-4">
+          <Post.Skeleton />
+        </div>
+      )}
     </div>
   )
 }
