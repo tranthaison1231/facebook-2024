@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { useIntersectionObserver } from './useIntersectionObserver'
 
 export function usePostList() {
-  const { data, fetchNextPage, hasNextPage, isFetching, error } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
     queryFn: ({ pageParam = 1 }) => getPosts({ pageParam }),
     queryKey: ['posts'],
     initialPageParam: 1,
@@ -15,14 +15,11 @@ export function usePostList() {
 
   const posts = useMemo(() => data?.pages.flatMap(page => page), [data])
 
-  const lastElementRef = useIntersectionObserver(
-    () => {
-      if (hasNextPage && !isFetching) {
-        fetchNextPage()
-      }
-    },
-    [fetchNextPage, hasNextPage, isFetching]
-  )
+  const lastElementRef = useIntersectionObserver(() => {
+    if (hasNextPage && !isFetching) {
+      fetchNextPage()
+    }
+  }, [fetchNextPage, hasNextPage, isFetching])
 
   return { posts, lastElementRef, isFetching }
 }
