@@ -1,6 +1,6 @@
 import axios from 'axios'
 import configs from '@/core/configs/configs'
-import { getToken } from './token'
+import { getToken, removeToken } from './token'
 
 const request = axios.create({
   baseURL: configs.API_URL,
@@ -18,6 +18,17 @@ request.interceptors.request.use(
     return config
   },
   error => {
+    return Promise.reject(error)
+  }
+)
+
+request.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 401) {
+      removeToken()
+      window.location.reload()
+    }
     return Promise.reject(error)
   }
 )

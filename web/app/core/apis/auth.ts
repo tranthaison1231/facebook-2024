@@ -5,6 +5,11 @@ interface LoginDto {
   password: string
 }
 
+interface SignUpDto extends LoginDto {
+  firstName: string
+  lastName: string
+}
+
 export const login = async ({ email, password }: LoginDto) => {
   const res = await request.post('/login', {
     email,
@@ -14,10 +19,7 @@ export const login = async ({ email, password }: LoginDto) => {
   return res.data
 }
 
-export const signUp = async (email: string, password: string) => {
-  const res = await request.post('/sign-up', {
-    email,
-    password
-  })
+export const signUp = async (signUpDto: SignUpDto) => {
+  const res = await request.post('/sign-up', signUpDto)
   return res.data
 }
