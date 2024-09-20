@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { UsersService } from "../users/users.service";
-import { comparePassword, hashPassword } from "../../helpers/password";
+import { comparePassword, hashPassword } from "@/helpers/password";
 import { AuthService } from "./auth.service";
 import { Prisma } from "@prisma/client";
 import { zValidator } from "@hono/zod-validator";
