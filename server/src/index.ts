@@ -4,13 +4,14 @@ import { cors } from "hono/cors";
 import { router as authRouter } from "./modules/auth/auth.controller";
 import { router as postsRouter } from "./modules/posts/posts.controller";
 import { router as usersRouter } from "./modules/users/users.controller";
+import { WEB_URL } from "./lib/constants";
 
 const app = new Hono();
 
 app.use(
   "*",
   cors({
-    origin: [],
+    origin: [WEB_URL],
     credentials: true,
   }),
 );
