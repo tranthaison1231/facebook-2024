@@ -1,6 +1,6 @@
 import { Outlet } from '@remix-run/react'
 import MinimizeHeader from '@/features/home/components/header/MinimizeHeader'
-import Login from '@/core/containers/login'
+import Login from '../containers/Login'
 
 export default function MinimizeLayout() {
   const token = localStorage.getItem('token')

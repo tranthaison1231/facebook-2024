@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react'
-import Image from '../components/Image'
 import { X } from 'lucide-react'
+import Image from './Image'
 
 interface AccountItemProps {
   image: string

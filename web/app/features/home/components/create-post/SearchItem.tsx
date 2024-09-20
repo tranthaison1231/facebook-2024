@@ -1,4 +1,4 @@
-import Image from '@/components/Image'
+import Image from '@/core/components/Image'
 
 interface SearchItemProps {
   image: string
