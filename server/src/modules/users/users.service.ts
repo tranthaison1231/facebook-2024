@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { prisma } from "../../prisma/db";
+import { prisma } from "@/prisma/db";
 
 export class UsersService {
   static async createUser(userDto: Prisma.UserCreateInput) {

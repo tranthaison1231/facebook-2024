@@ -1,9 +1,10 @@
 import { Hono } from "hono";
 import { PostsService } from "./posts.service";
+import { auth } from "@/middlewares/auth";
 
 export const router = new Hono();
 
-router.get("/", async (c) => {
+router.get("/", auth, async (c) => {
   const page = Number(c.req.query("page"));
   const limit = Number(c.req.query("limit"));
   const items = await PostsService.getPosts();

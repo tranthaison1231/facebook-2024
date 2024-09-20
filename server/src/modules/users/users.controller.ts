@@ -1,24 +1,11 @@
+import { auth } from "@/middlewares/auth";
 import { Hono } from "hono";
-import { JWT_SECRET } from "../../lib/constants";
-import jwt from "jsonwebtoken";
-import { UsersService } from "./users.service";
 
 export const router = new Hono();
 
-router.get("/me", async (c) => {
+router.get("/me", auth, async (c) => {
   try {
-    const header = c.req.header();
-
-    const token = header.authorization.split(" ")[1];
-
-    const data = jwt.verify(token, JWT_SECRET) as { userId: string };
-
-    const user = await UsersService.getUserById(data.userId);
-
-    if (!user) {
-      return c.json({ message: "User not found!", status: 404 }, 404);
-    }
-
+    const user = c.get("user");
     return c.json({
       fullName: user.firstName + " " + user.lastName,
       avatar:

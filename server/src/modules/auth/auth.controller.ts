@@ -2,31 +2,39 @@ import { Hono } from "hono";
 import { UsersService } from "../users/users.service";
 import { comparePassword, hashPassword } from "../../helpers/password";
 import { AuthService } from "./auth.service";
+import { Prisma } from "@prisma/client";
+import { zValidator } from "@hono/zod-validator";
+import { signInDto, signUpDto } from "./dtos/auth.dto";
+import { errorMessages, successMessages } from "@/lib/messages";
 
 export const router = new Hono();
 
 router
-  .post("/login", async (c) => {
+  .post("/login", zValidator("json", signInDto), async (c) => {
     const { email, password } = await c.req.json();
 
     const user = await UsersService.getUserByEmail(email);
 
     if (!user) {
-      return c.json({ message: "User not found!", status: 404 }, 404);
+      return c.json({ message: errorMessages.userNotFound, status: 404 }, 404);
     }
 
     const isPasswordValid = await comparePassword(password, user.password);
 
     if (!isPasswordValid) {
-      return c.json({ message: "Invalid password!", status: 401 }, 401);
+      return c.json(
+        { message: errorMessages.invalidPassword, status: 401 },
+        401,
+      );
     }
 
     const token = AuthService.createToken({ userId: user.id });
 
     return c.json({ token: token });
   })
-  .post("/sign-up", async (c) => {
+  .post("/sign-up", zValidator("json", signUpDto), async (c) => {
     const { email, password, firstName, lastName } = await c.req.json();
+
     try {
       const hashedPassword = await hashPassword(password);
 
@@ -36,10 +44,16 @@ router
         firstName,
         lastName,
       });
-      return c.json({ message: "User created successfully!" });
+      return c.json({ message: successMessages.userCreate });
     } catch (error) {
-      if (error.code === "P2002") {
-        return c.json({ message: "Email already exists!", status: 400 }, 400);
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2002"
+      ) {
+        return c.json(
+          { message: errorMessages.existingEmail, status: 400 },
+          400,
+        );
       }
       return c.json({ message: "An error occurred!", status: 500 }, 500);
     }
