@@ -21,3 +21,5 @@ app.route("/posts", postsRouter);
 app.route("/users", usersRouter);
 
 serve({ fetch: app.fetch, port: 5000 });
+
+// index.ts => authRouter

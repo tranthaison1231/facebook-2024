@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Context, Hono } from "hono";
 import { UsersService } from "../users/users.service";
 import { comparePassword, hashPassword } from "@/helpers/password";
 import { AuthService } from "./auth.service";
@@ -10,7 +10,7 @@ import { errorMessages, successMessages } from "@/lib/messages";
 export const router = new Hono();
 
 router
-  .post("/login", zValidator("json", signInDto), async (c) => {
+  .post("/login", zValidator("json", signInDto), async (c: Context) => {
     const { email, password } = await c.req.json();
 
     const user = await UsersService.getUserByEmail(email);
