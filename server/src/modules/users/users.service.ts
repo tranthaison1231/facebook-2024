@@ -23,4 +23,15 @@ export class UsersService {
       },
     });
   }
+
+  static async updateNewPassword(id: string, newHashedPassword: string) {
+    return prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        password: newHashedPassword,
+      },
+    });
+  }
 }
