@@ -1,4 +1,6 @@
 import request from '@/core/helpers/request'
+import axios from 'axios'
+import configs from '../configs/configs'
 
 interface LoginDto {
   email: string
@@ -21,5 +23,18 @@ export const login = async ({ email, password }: LoginDto) => {
 
 export const signUp = async (signUpDto: SignUpDto) => {
   const res = await request.post('/sign-up', signUpDto)
+  return res.data
+}
+
+export const resetPassword = async (password: string, accessToken: string) => {
+  const res = await axios.post(
+    `${configs.API_URL}/reset-password`,
+    { password },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    }
+  )
   return res.data
 }

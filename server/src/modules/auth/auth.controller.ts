@@ -4,8 +4,14 @@ import { comparePassword, hashPassword } from "@/helpers/password";
 import { AuthService } from "./auth.service";
 import { Prisma } from "@prisma/client";
 import { zValidator } from "@hono/zod-validator";
-import { signInDto, signUpDto } from "./dtos/auth.dto";
+import {
+  forgotPasswordDto,
+  signInDto,
+  signUpDto,
+  resetPasswordDto,
+} from "./dtos/auth.dto";
 import { errorMessages, successMessages } from "@/lib/messages";
+import { auth } from "@/middlewares/auth";
 
 export const router = new Hono();
 
@@ -57,4 +63,43 @@ router
       }
       return c.json({ message: "An error occurred!", status: 500 }, 500);
     }
-  });
+  })
+  .post(
+    "/forgot-password",
+    zValidator("json", forgotPasswordDto),
+    async (c) => {
+      try {
+        const { email } = await c.req.json();
+
+        const user = await UsersService.getUserByEmail(email);
+
+        if (!user)
+          return c.json(
+            { message: errorMessages.userNotFound, status: 404 },
+            404,
+          );
+
+        await AuthService.forgotPassword(user);
+
+        return c.json({ message: "Forgot password" });
+      } catch (error) {
+        console.log(error);
+        return c.json({ message: "An error occurred!", status: 500 }, 500);
+      }
+    },
+  )
+  .post(
+    "/reset-password",
+    auth,
+    zValidator("json", resetPasswordDto),
+    async (c) => {
+      const user = c.get("user");
+
+      const { password } = await c.req.json();
+
+      const hashedPassword = await hashPassword(password);
+
+      await UsersService.updateUser(user.id, { password: hashedPassword });
+      return c.json({ message: "Reset password!" });
+    },
+  );
