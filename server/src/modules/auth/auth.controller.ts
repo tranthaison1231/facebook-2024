@@ -81,7 +81,7 @@ router
 
         await AuthService.forgotPassword(user);
 
-        return c.json({ message: "Forgot password" });
+        return c.json({ message: successMessages.forgotPassword });
       } catch (error) {
         console.log(error);
         return c.json({ message: "An error occurred!", status: 500 }, 500);

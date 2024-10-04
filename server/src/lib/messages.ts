@@ -9,4 +9,5 @@ export const errorMessages = {
 
 export const successMessages = {
   userCreate: "User created successfully",
+  forgotPassword: "Password reset link sent to your email",
 };
