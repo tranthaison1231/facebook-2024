@@ -3,7 +3,7 @@ import configs from '@/core/configs/configs'
 import { getToken, removeToken } from './token'
 
 const request = axios.create({
-  baseURL: configs.API_URL,
+  baseURL: configs.API_URL + '/api',
   headers: {
     'Content-Type': 'application/json'
   }
@@ -24,10 +24,16 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   response => response,
-  error => {
+  async error => {
     if (error.response.status === 401) {
-      removeToken()
-      window.location.reload()
+      try {
+        const response = await request.post('/refresh-token')
+        console.log(response)
+      } catch (error) {
+        console.error(error)
+        removeToken()
+        window.location.reload()
+      }
     }
     return Promise.reject(error)
   }

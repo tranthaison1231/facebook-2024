@@ -6,7 +6,7 @@ import { router as postsRouter } from "./modules/posts/posts.controller";
 import { router as usersRouter } from "./modules/users/users.controller";
 import { WEB_URL } from "./lib/constants";
 
-const app = new Hono();
+const app = new Hono().basePath("/api");
 
 app.use(
   "*",
@@ -20,4 +20,4 @@ app.route("/", authRouter);
 app.route("/posts", postsRouter);
 app.route("/users", usersRouter);
 
-serve({ fetch: app.fetch, port: 4000 });
+serve({ fetch: app.fetch, port: 3000 });

@@ -28,7 +28,7 @@ export const signUp = async (signUpDto: SignUpDto) => {
 
 export const resetPassword = async (password: string, accessToken: string) => {
   const res = await axios.post(
-    `${configs.API_URL}/reset-password`,
+    `${configs.API_URL}/api/reset-password`,
     { password },
     {
       headers: {
