@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTrigger } from '@/core/components/ui/dialog'
+import { Dialog, DialogContent } from '@/core/components/ui/dialog'
 import TagPeople from './TagPeople'
 import FeelingActivity from './FeelingActivity'
 import Gif from './Gif'
@@ -8,13 +8,13 @@ import PostAudience from './PostAudience'
 
 import { Position, usePosition } from '@/features/home/stores/position'
 import { CreatePostDefault } from './CreatePostDefault'
-import { useState } from 'react'
+import { DialogProps } from '@radix-ui/react-dialog'
 
-interface CreatePostProps {
+interface CreatePostProps extends DialogProps {
   isAddPhoto?: boolean
-  trigger: React.ReactNode
   currentPosition?: Position
-  handleContentPostHeader: (value: string) => void
+  handleContentPostHeader?: (value: string) => void
+  onCreatePostSuccess: () => void
 }
 
 export enum PostAudienceOptions {
@@ -26,12 +26,11 @@ export enum PostAudienceOptions {
   Setting
 }
 
-function CreatePost({ trigger }: CreatePostProps) {
+function CreatePost({ open, onOpenChange, onCreatePostSuccess }: CreatePostProps) {
   const { setPosition, position } = usePosition()
-  const [isOpen, setIsOpen] = useState(false)
 
   const PostContent = {
-    [Position.Root]: <CreatePostDefault onSuccess={() => setIsOpen(false)} />,
+    [Position.Root]: <CreatePostDefault onSuccess={onCreatePostSuccess} />,
     [Position.TagPeople]: <TagPeople onBack={() => setPosition(Position.Root)} />,
     [Position.FeelingActivity]: <FeelingActivity onBack={() => setPosition(Position.Root)} />,
     [Position.Gif]: <Gif onBack={() => setPosition(Position.Root)} />,
@@ -45,13 +44,9 @@ function CreatePost({ trigger }: CreatePostProps) {
       />
     )
   }
-  const onOpenChange = () => {
-    setIsOpen(!isOpen)
-  }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogTrigger className="grow">{trigger}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className="w-[500px] pb-2 shadow-3xl"
         onInteractOutside={() => {

@@ -20,28 +20,31 @@ export class AuthService {
     });
   }
 
-  static async createRefreshToken({ userId }: { userId: string }) {
+  static async createRefreshToken({ userID }: { userID: string }) {
     const refreshToken = generateOpaqueToken();
 
     await redisService.set(
-      `refresh-token:${userId}`,
+      `refresh-token:${userID}`,
       refreshToken,
       "EX",
       REFRESH_TOKEN_EXPIRE_IN,
     );
+
+    console.log("refreshToken", refreshToken, userID);
 
     return refreshToken;
   }
 
   static async refreshToken(refreshToken: string, userID: string) {
     const redisRefreshToken = await redisService.get(`refresh-token:${userID}`);
+
     if (redisRefreshToken !== refreshToken)
       throw new UnauthorizedException("Invalid refresh token");
     const accessToken = AuthService.createAccessToken({
       userId: userID.toString(),
     });
     const newRefreshToken = await AuthService.createRefreshToken({
-      userId: userID.toString(),
+      userID: userID.toString(),
     });
     return {
       accessToken,

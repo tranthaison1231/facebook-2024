@@ -11,7 +11,6 @@ function ResetPassword() {
     if (!accessToken) {
       return
     }
-    console.log('accessToken', accessToken)
 
     await resetPassword('newPassword', accessToken)
   }

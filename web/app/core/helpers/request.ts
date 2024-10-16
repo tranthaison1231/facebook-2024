@@ -1,12 +1,13 @@
 import axios from 'axios'
 import configs from '@/core/configs/configs'
-import { getToken, removeToken } from './token'
+import { getToken, removeToken, setToken } from './token'
 
 const request = axios.create({
   baseURL: configs.API_URL + '/api',
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  withCredentials: true
 })
 
 request.interceptors.request.use(
@@ -28,7 +29,9 @@ request.interceptors.response.use(
     if (error.response.status === 401) {
       try {
         const response = await request.post('/refresh-token')
-        console.log(response)
+        error.config.headers.Authorization = `Bearer ${response.data.accessToken}`
+        setToken(response.data.accessToken)
+        return request(error.config)
       } catch (error) {
         console.error(error)
         removeToken()

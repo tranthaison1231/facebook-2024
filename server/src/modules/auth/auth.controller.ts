@@ -40,10 +40,8 @@ router
 
     const accessToken = AuthService.createAccessToken({ userId: user.id });
     const refreshToken = await AuthService.createRefreshToken({
-      userId: user.id,
+      userID: user.id,
     });
-
-    console.log("refreshToken", refreshToken);
 
     setCookie(c, "refreshToken", refreshToken, {
       maxAge: REFRESH_TOKEN_EXPIRE_IN * 12,
@@ -128,13 +126,20 @@ router
     const jwtObject = jwt.decode(token) as { userId: string };
 
     const userID = jwtObject?.userId;
-    console.log("userID", userID, refreshToken, getCookie(c));
 
     if (!userID || !refreshToken)
       return c.json({ message: "Invalid token!", status: 500 }, 500);
 
     const { accessToken, refreshToken: newRefreshToken } =
       await AuthService.refreshToken(refreshToken, userID as string);
+
+    setCookie(c, "refreshToken", newRefreshToken, {
+      maxAge: REFRESH_TOKEN_EXPIRE_IN * 12,
+      sameSite: "None",
+      httpOnly: true,
+      secure: true,
+      path: "/api/refresh-token",
+    });
 
     return c.json({ accessToken, refreshToken: newRefreshToken });
   });
