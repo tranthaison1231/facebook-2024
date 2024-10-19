@@ -12,7 +12,7 @@ router
     const limit = Number(c.req.query("limit"));
     const response = await PostsService.getPosts(page, limit);
 
-    return c.json(response, 200);
+    return c.json(response, 201);
   })
   .post("/", auth, zValidator("json", createPostDto), async (c) => {
     const user = c.get("user");
@@ -27,5 +27,23 @@ router
       },
     });
 
-    return c.json(post, 201);
+    return c.json(post, 202);
+  })
+  .delete("/:id", auth, async (c) => {
+    const id = c.req.param("id");
+    const user = c.get("user");
+
+    const post = await PostsService.getPostById(id);
+
+    if (!post) {
+      return c.json({ message: "Post not found" }, 405);
+    }
+
+    if (post.ownerId !== user.id) {
+      return c.json({ message: "Unauthorized" }, 402);
+    }
+
+    await PostsService.deletePost(id);
+
+    return c.json({ message: "Post deleted" }, 201);
   });

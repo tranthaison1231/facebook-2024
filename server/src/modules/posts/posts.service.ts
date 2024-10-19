@@ -24,4 +24,20 @@ export class PostsService {
   static async createPost(data: Prisma.PostCreateInput) {
     return prisma.post.create({ data });
   }
+
+  static getPostById(id: string) {
+    return prisma.post.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  static deletePost(id: string) {
+    return prisma.post.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
