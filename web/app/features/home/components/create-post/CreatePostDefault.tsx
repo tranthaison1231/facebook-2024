@@ -19,7 +19,7 @@ import { createPostSchema } from '@/core/helpers/schema'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { uploadImage } from '@/core/helpers/upload-image'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createPost } from '@/core/apis/post'
 import { toast } from 'sonner'
 
@@ -65,10 +65,14 @@ interface CreatePostDefaultProps {
 export const CreatePostDefault = ({ onSuccess }: CreatePostDefaultProps) => {
   const [isOpenAddPhoto, setIsOpenAddPhoto] = useState(true)
   const { setPosition } = usePosition()
+  const queryClient = useQueryClient()
 
   const createPostMutation = useMutation({
     mutationFn: createPost,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['posts']
+      })
       toast.success('Post created successfully')
       onSuccess()
     }

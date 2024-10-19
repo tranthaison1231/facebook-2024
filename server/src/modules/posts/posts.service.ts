@@ -6,9 +6,12 @@ export class PostsService {
     const items = await prisma.post.findMany({
       take: limit,
       skip: (page - 1) * limit,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
-    const total = await prisma.post.count();
+    const total = prisma.post.count();
 
     return {
       items,

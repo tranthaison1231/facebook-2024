@@ -1,6 +1,8 @@
 import { Hono } from "hono";
 import { PostsService } from "./posts.service";
 import { auth } from "@/middlewares/auth";
+import { createPostDto } from "./dtos/create-post.dto";
+import { zValidator } from "@hono/zod-validator";
 
 export const router = new Hono();
 
@@ -12,9 +14,18 @@ router
 
     return c.json(response, 200);
   })
-  .post("/", auth, async (c) => {
+  .post("/", auth, zValidator("json", createPostDto), async (c) => {
+    const user = c.get("user");
+
     const createPostDto = await c.req.json();
-    const post = await PostsService.createPost(createPostDto);
+    const post = await PostsService.createPost({
+      content: createPostDto.content,
+      owner: {
+        connect: {
+          id: user.id,
+        },
+      },
+    });
 
     return c.json(post, 201);
   });
