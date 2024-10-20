@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import {
   ACCESS_TOKEN_EXPIRE_IN,
-  JWT_SECRET,
   WEB_URL,
   REFRESH_TOKEN_EXPIRE_IN,
 } from "@/lib/constants";
@@ -12,11 +11,24 @@ import { ForgotPassword } from "@/emails/forgot-password";
 import { redisService } from "@/helpers/redis";
 import { generateOpaqueToken } from "@/helpers/token";
 import { UnauthorizedException } from "@/lib/exceptions";
+import crypto from "crypto";
 
 export class AuthService {
-  static createAccessToken({ userId }: { userId: string }) {
-    return jwt.sign({ userId: userId }, JWT_SECRET, {
+  static async createAccessToken({ userId }: { userId: string }) {
+    const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
+      modulusLength: 4096,
+    });
+
+    const publicKeyPem = publicKey.export({
+      type: "spki",
+      format: "pem",
+    });
+
+    await redisService.set(`public-key:${userId}`, publicKeyPem, "EX", 60 * 60);
+
+    return jwt.sign({ userId: userId }, privateKey, {
       expiresIn: ACCESS_TOKEN_EXPIRE_IN,
+      algorithm: "RS256",
     });
   }
 
@@ -30,8 +42,6 @@ export class AuthService {
       REFRESH_TOKEN_EXPIRE_IN,
     );
 
-    console.log("refreshToken", refreshToken, userID);
-
     return refreshToken;
   }
 
@@ -40,7 +50,7 @@ export class AuthService {
 
     if (redisRefreshToken !== refreshToken)
       throw new UnauthorizedException("Invalid refresh token");
-    const accessToken = AuthService.createAccessToken({
+    const accessToken = await AuthService.createAccessToken({
       userId: userID.toString(),
     });
     const newRefreshToken = await AuthService.createRefreshToken({

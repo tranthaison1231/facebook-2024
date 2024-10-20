@@ -38,10 +38,14 @@ router
       );
     }
 
-    const accessToken = AuthService.createAccessToken({ userId: user.id });
+    const accessToken = await AuthService.createAccessToken({
+      userId: user.id,
+    });
     const refreshToken = await AuthService.createRefreshToken({
       userID: user.id,
     });
+
+    console.log("accessToken", accessToken);
 
     setCookie(c, "refreshToken", refreshToken, {
       maxAge: REFRESH_TOKEN_EXPIRE_IN * 12,

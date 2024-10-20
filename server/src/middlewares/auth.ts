@@ -1,20 +1,25 @@
 import { UnauthorizedException } from "@/lib/exceptions";
 import { Context, Next } from "hono";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "@/lib/constants";
 import { prisma } from "@/prisma/db";
+import { redisService } from "@/helpers/redis";
 
 export const verifyToken = async (token: string) => {
   try {
-    const data = jwt.verify(token, JWT_SECRET) as { userId: string };
+    const { userId } = jwt.decode(token) as { userId: string };
+
+    const publicKey = await redisService.get(`public-key:${userId}`);
+
+    jwt.verify(token, publicKey);
 
     const user = await prisma.user.findUnique({
       where: {
-        id: data.userId,
+        id: userId,
       },
     });
     return user;
   } catch (err) {
+    console.log("err", err);
     throw new UnauthorizedException("Unauthorized");
   }
 };
