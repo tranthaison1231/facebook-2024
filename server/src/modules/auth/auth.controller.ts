@@ -45,8 +45,6 @@ router
       userID: user.id,
     });
 
-    console.log("accessToken", accessToken);
-
     setCookie(c, "refreshToken", refreshToken, {
       maxAge: REFRESH_TOKEN_EXPIRE_IN * 12,
       sameSite: "None",

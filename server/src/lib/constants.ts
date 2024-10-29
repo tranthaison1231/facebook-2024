@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const WEB_URL = process.env.WEB_URL;
-export const ACCESS_TOKEN_EXPIRE_IN = 10;
+export const ACCESS_TOKEN_EXPIRE_IN = 60 * 60;
 export const REFRESH_TOKEN_EXPIRE_IN = 60 * 60 * 24 * 30;
 export const RESEND_API_KEY = process.env.RESEND_API_KEY;
 export const MAIL_TRANSPORT = process.env.MAIL_TRANSPORT;

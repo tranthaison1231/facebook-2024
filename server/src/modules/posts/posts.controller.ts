@@ -20,6 +20,7 @@ router
     const createPostDto = await c.req.json();
     const post = await PostsService.createPost({
       content: createPostDto.content,
+      image: createPostDto.images[0],
       owner: {
         connect: {
           id: user.id,
@@ -28,6 +29,20 @@ router
     });
 
     return c.json(post, 202);
+  })
+  .put("/:id/like", auth, async (c) => {
+    const id = c.req.param("id");
+    const user = c.get("user");
+
+    const post = await PostsService.getPostById(id);
+
+    if (!post) {
+      return c.json({ message: "Post not found" }, 405);
+    }
+
+    await PostsService.likePost(id, user.id);
+
+    return c.json({ message: "Post liked" }, 201);
   })
   .delete("/:id", auth, async (c) => {
     const id = c.req.param("id");
@@ -40,7 +55,7 @@ router
     }
 
     if (post.ownerId !== user.id) {
-      return c.json({ message: "Unauthorized" }, 402);
+      return c.json({ message: "Unauthorized" }, 401);
     }
 
     await PostsService.deletePost(id);

@@ -4,53 +4,53 @@ import FeatureIconV2 from '@/core/components/feature-icons/FeatureIconV2'
 import FeatureIconV14 from '@/core/components/feature-icons/FeatureIconV14'
 import FeatureIconV15 from '@/core/components/feature-icons/FeatureIconV15'
 import clock from '@/assets/images/clock.png'
-import hideAll from '@/assets/images/hide-all.png'
-import blockUser from '@/assets/images/block-user.png'
-import reportPost from '@/assets/images/report.png'
 import hidePost from '@/assets/images/hide-post.png'
 import Image from '@/core/components/Image'
-
-const POSTLIST_MENUS = [
-  {
-    title: 'Report post to group admins',
-    logo: <FeatureIconV15 name="StarShield" />
-  },
-  {
-    title: 'Hide post',
-    description: 'See fewer posts like this.',
-    logo: <Image src={hidePost} alt={hidePost} />
-  },
-  {
-    title: 'Snooze Son Tung for 30 days',
-    description: 'Temporarily stop seeing posts',
-    logo: <Image src={clock} alt={clock} />
-  },
-  {
-    title: 'Hide all from Son Tung',
-    logo: <Image src={hideAll} alt={hideAll} />,
-    description: 'Stop seeing posts from Son Tung'
-  },
-  {
-    title: 'Unfollow Son Tung',
-    logo: <Image src={hideAll} alt={hideAll} />,
-    description: 'Stop seeing posts from Son Tung'
-  },
-  {
-    title: 'Report Son Tung',
-    logo: <Image src={reportPost} alt={reportPost} />,
-    description: 'We wont let them know you are using Facebook'
-  },
-  {
-    title: 'Block Son Tung',
-    logo: <Image src={blockUser} alt={blockUser} />
-  }
-]
+import { Trash } from 'lucide-react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { deletePost } from '@/core/apis/post'
+import { toast } from 'sonner'
 
 interface PopoverInfoProps {
   trigger: React.ReactNode
+  postId: string
 }
 
-export default function PopoverMoreMenu({ trigger }: PopoverInfoProps) {
+export default function PopoverMoreMenu({ trigger, postId }: PopoverInfoProps) {
+  const queryClient = useQueryClient()
+
+  const deletePostMutation = useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['posts']
+      })
+      toast.success('Post deleted successfully')
+    }
+  })
+
+  const POSTLIST_MENUS = [
+    {
+      title: 'Report post to group admins',
+      logo: <FeatureIconV15 name="StarShield" />
+    },
+    {
+      title: 'Hide post',
+      description: 'See fewer posts like this.',
+      logo: <Image src={hidePost} alt={hidePost} />
+    },
+    {
+      title: 'Snooze Son Tung for 30 days',
+      description: 'Temporarily stop seeing posts',
+      logo: <Image src={clock} alt={clock} />
+    },
+    {
+      title: 'Move to Bin',
+      logo: <Trash />,
+      onClick: () => deletePostMutation.mutate(postId)
+    }
+  ]
+
   return (
     <Popover>
       <PopoverTrigger asChild>{trigger}</PopoverTrigger>
@@ -73,7 +73,8 @@ export default function PopoverMoreMenu({ trigger }: PopoverInfoProps) {
         {POSTLIST_MENUS.map(menu => (
           <div
             key={menu.title}
-            className="flex flex-row items-center gap-4 rounded-lg px-1 py-2 text-sm hover:bg-gray-200"
+            className="flex cursor-pointer flex-row items-center gap-4 rounded-lg px-1 py-2 text-sm hover:bg-gray-200"
+            onClick={menu.onClick}
           >
             {menu.logo}
             <div>

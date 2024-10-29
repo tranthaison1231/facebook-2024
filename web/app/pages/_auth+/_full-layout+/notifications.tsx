@@ -1,5 +1,11 @@
+import { NotificationForm } from '@/features/notifications/containers/NotificationForm'
+
 function Notification() {
-  return <div>Notification</div>
+  return (
+    <div>
+      <NotificationForm />
+    </div>
+  )
 }
 
 export default Notification

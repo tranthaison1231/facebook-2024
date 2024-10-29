@@ -13,8 +13,9 @@ export const getSearchUser = async (inputSearch: string, type = 'less') => {
 
 export interface User {
   id: number
-  fullName: string
   avatar: string
+  firstName: string
+  lastName: string
 }
 
 export const getMe = async () => {

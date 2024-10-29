@@ -9,6 +9,14 @@ export class PostsService {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        owner: true,
+        likes: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
 
     const total = prisma.post.count();
@@ -19,6 +27,21 @@ export class PostsService {
       page,
       limit,
     };
+  }
+
+  static async likePost(postId: string, userId: string) {
+    return prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likes: {
+          create: {
+            userId,
+          },
+        },
+      },
+    });
   }
 
   static async createPost(data: Prisma.PostCreateInput) {
